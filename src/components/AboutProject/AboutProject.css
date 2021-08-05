@@ -1,4 +1,6 @@
 .about-project {
+    display: flex;
+    flex-direction: column;
     max-width: 1280px;
     width: 100%;
     min-height: 605px;
@@ -31,7 +33,7 @@
     line-height: 27px;
     letter-spacing: -0.04em;
     color: #000000;
-    border-bottom: 1px solid #000000;
+    border-bottom: 1px solid;
 }
 
 @media screen and (min-width: 321px) and (max-width: 768px) {
