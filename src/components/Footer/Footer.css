@@ -1,0 +1,137 @@
+.footer {
+    display: flex;
+    flex-direction: column;
+    max-width: 1280px;
+    width: 100%;
+    min-height: 172px;
+    background-color: #F8F8F8;
+}
+
+@media screen and (min-width: 321px) and (max-width: 768px) {
+    .footer {
+        max-width: 768px;
+        min-height: 172px;
+    }
+}
+
+@media screen and (max-width: 320px) {
+    .footer {
+        max-width: 320px;
+        min-height: 270px;
+    }
+}
+
+.footer-title {
+    max-width: 1140px;
+    width: 100%;
+    padding: 80px 0 20px;
+    margin: 0 auto;
+    font-family: Inter;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 13px;
+    line-height: 16px;
+    text-align: center;
+    color: #A0A0A0;
+    border-bottom: 1px solid #E8E8E8;
+}
+
+@media screen and (min-width: 321px) and (max-width: 768px) {
+    .footer-title {
+        max-width: 708px;        
+    }
+}
+
+@media screen and (max-width: 320px) {
+    .footer-title {
+        max-width: 300px;
+        font-size: 12px;
+        line-height: 15px
+    }
+}
+
+.footer-content {
+    max-width: 1140px;
+    width: 100%;
+    margin: 0 auto;
+    padding: 20px 0 0;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+@media screen and (min-width: 321px) and (max-width: 768px) {
+    .footer-content {
+        max-width: 708px;        
+    }
+}
+
+@media screen and (max-width: 320px) {
+    .footer-content {
+        max-width: 110px;
+        padding: 30px 0 10px;
+        flex-wrap: wrap-reverse;
+        justify-content: center;
+    }
+}
+
+.footer-copyright {
+    margin: 0;
+    padding: 0;
+    font-family: Inter;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 13px;
+    line-height: 16px;
+    color: #000000;
+}
+
+@media screen and (max-width: 320px) {
+    .footer-copyright {
+        padding: 30px 0 0;
+        font-size: 12px;
+        line-height: 15px;
+    }
+}
+
+.footer-links {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    display: grid;
+    grid-gap: 20px;
+    grid-auto-flow: column;
+}
+
+@media screen and (max-width: 320px) {
+    .footer-links {
+        grid-auto-flow: row;
+        grid-gap: 10px;
+        justify-items: center;
+    }
+}
+
+.footer-link {
+    text-decoration: none;
+    font-family: Inter;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 13px;
+    line-height: 16px;
+    text-align: right;
+    color: #000000;
+    text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    opacity: 1;
+}
+
+.footer-link:hover {
+    opacity: 0.7;
+}
+
+@media screen and (max-width: 320px) {
+    .footer-link {
+        font-size: 12px;
+        line-height: 15px;
+        text-align: center;
+    }
+}

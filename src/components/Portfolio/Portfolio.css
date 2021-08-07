@@ -1,0 +1,157 @@
+.portfolio {
+    max-width: 1280px;
+    width: 100%;
+    min-height: 425px;
+    display: flex;
+    flex-direction: column;
+    background-color: #FAFAFA;
+}
+
+@media screen and (min-width: 321px) and (max-width: 768px) {
+    .portfolio {
+        max-width: 768px;
+        min-height: 390px;
+    }
+}
+
+@media screen and (max-width: 320px) {
+    .portfolio {
+        max-width: 320px;
+        min-height: 234px;
+    }
+}
+
+.portfolio-title {
+    max-width: 1140px;
+    width: 100%;
+    margin: 0 auto;
+    padding: 0;
+    font-family: Inter;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 18px;
+    line-height: 20px;
+    color: #A0A0A0;
+    mix-blend-mode: normal;
+}
+
+@media screen and (min-width: 321px) and (max-width: 768px) {
+    .portfolio-title {
+        max-width: 668px;
+    }
+}
+
+@media screen and (max-width: 320px) {
+    .portfolio-title {
+        max-width: 292px;
+        font-size: 14px;
+        line-height: 20px;
+    }
+}
+
+
+.portfolio-links {
+    max-width: 1140px;
+    width: 100%;
+    padding: 30px 0 125px;
+    margin: 0 auto;
+}
+
+@media screen and (min-width: 321px) and (max-width: 768px) {
+    .portfolio-links {
+        max-width: 668px;
+        padding: 30px 0 90px;
+    }
+}
+
+@media screen and (max-width: 320px) {
+    .portfolio-links {
+        max-width: 292px;
+        padding: 20px 0 70px;
+    }
+}
+
+.portfolio-project {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    max-width: 100%;
+    margin: 0;
+    padding: 20px 0;
+    list-style: none;    
+    border-bottom: 1px solid #E8E8E8;
+}
+
+.portfolio-app {
+    margin: 0;
+    font-family: Inter;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 30px;
+    line-height: 50px;
+    letter-spacing: -0.04em;
+    color: #000000;
+}
+
+@media screen and (min-width: 321px) and (max-width: 768px) {
+    .portfolio-app {
+        font-size: 28px;
+    }
+}
+
+@media screen and (max-width: 320px) {
+    .portfolio-app {
+        font-size: 18px;
+        line-height: 28px;
+    }
+}
+
+.portfolio-link {
+    align-self: center;
+    text-decoration: none;
+    max-width: 29px;
+    width: 100%;
+    min-height: 60px;
+}
+
+@media screen and (min-width: 321px) and (max-width: 768px) {
+    .portfolio-link {
+        max-width: 27px;
+    }
+}
+
+@media screen and (max-width: 320px) {
+    .portfolio-link {
+        max-width: 18px;
+        min-height: 28px;
+    }
+}
+
+.project-icon {
+    background-image: url(../../images/portfolio-link.svg);
+    background-size: 29px, 60px, cover;
+    background-repeat: no-repeat;
+    max-width: 29px;
+    width: 100%;
+    min-height: 60px;
+    opacity: 1;
+}
+
+.project-icon:hover {
+    opacity: 0.8;
+}
+
+@media screen and (min-width: 321px) and (max-width: 768px) {
+    .project-icon {
+        background-size: 27px, 60px, cover;
+        max-width: 27px;
+    }
+}
+
+@media screen and (max-width: 320px) {
+    .project-icon {
+        background-size: 18px, 28px, cover;
+        max-width: 18px;
+        min-height: 28px;
+    }
+}
