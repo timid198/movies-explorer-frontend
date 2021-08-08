@@ -1,0 +1,8 @@
+.Movies {
+    grid-area: main;
+    display: flex;
+    flex-direction: column;
+    max-width: 1280px;
+    width: 100%;
+    min-height: 1666px;
+}

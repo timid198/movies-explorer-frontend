@@ -1,14 +1,18 @@
 .navigation {
-    position: absolute;
-    display: flex;
+    display: none;
     flex-direction: row;
-    top: 28px;
-    left: 144px;
+    grid-auto-flow: column;
+    grid-gap: 16px;
+    grid-auto-columns: max-content;
+    padding: 0 0 0 44px;
+}
+
+.navigation_open {
+    display: grid;
 }
 
 .navigation-point {
     text-decoration: none;
-    padding: 0 8px;
     font-style: normal;
     font-weight: 500;
     font-size: 13px;

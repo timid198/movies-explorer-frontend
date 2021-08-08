@@ -1,0 +1,124 @@
+.search-form {
+    max-width: 1280px;
+    width: 100%;
+    min-height: 172px;
+    background-color: #FAFAFA;
+    display: flex;
+    flex-direction: column;
+    padding: 70px 0 0;
+}
+
+.search-form__input-area {
+    max-width: 1140px;
+    width: 100%;
+    min-height: 72px;    
+    margin: 0 auto;
+    padding: 0;
+    border: 1.5px solid;
+    border-color: rgba(170, 170, 170, 0.2);
+    box-sizing: border-box;
+    border-radius: 8px;
+}
+
+.search-form__search-section {
+    max-width: 100%;
+    min-height: 52px;
+    padding: 10px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.search-form__input {
+    max-width: 1005px;
+    width: 100%;
+    padding: 15px 0 15px 15px;
+    border: none;
+    font-family: Inter;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 18px;
+    line-height: 20px;
+    color: #A0A0A0;
+    outline: none;
+    background-color: #FAFAFA;
+}
+
+.search-form__submit {
+    max-width: 100px;
+    width: 100%;
+    min-height: 52px;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-family: Inter;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 18px;
+    text-align: center;    
+    background-color: #3456F3;
+    color: #FFFFFF;
+    border-radius: 5px;
+    border-color: transparent;
+}
+
+.search-form__selection {
+    max-width: 1140px;
+    width: 100%;
+    min-height: 90px;
+    padding: 26px 0 44px;   
+    margin: 0 auto;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    border-bottom: 1.5px solid;
+    border-color: rgba(170, 170, 170, 0.2);
+    box-sizing: border-box; 
+}
+
+.search-form__selection-section {    
+    width: 100%;
+}
+
+.search-form__selector {
+    box-sizing: border-box;
+    display: inline-block;
+    vertical-align: middle;
+    width: 36px;
+    height: 20px;
+}
+
+.search-form__selector-hidden {
+    position: absolute;    
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+}
+
+.search-form__selector-hidden:checked + .search-form__pseudo {
+    background-image: url(../../images/smalltumb.svg);
+}
+
+.search-form__selector-hidden + .search-form__pseudo {
+    background-image: url(../../images/smalltumboff.svg);
+}
+
+.search-form__short-movies {
+    padding: 0 0 0 14px;
+    font-family: Inter;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 13px;
+    line-height: 18px;
+    color: #000000;
+    -webkit-user-select: none;
+	-khtml-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+}
