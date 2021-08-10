@@ -3,7 +3,9 @@ import './MoviesCardList.css';
 
 function MoviesCardList() {
     return (
-        <div></div>
+        <div className="movies-card-list">
+
+        </div>
     )
 }
 

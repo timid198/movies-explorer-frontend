@@ -41,7 +41,6 @@
 }
 
 .header-logo {
-    /* display: block; */
     background-image: url(../../images/logo.svg);
     background-size: 38px, 38px, cover;
     background-repeat: no-repeat;

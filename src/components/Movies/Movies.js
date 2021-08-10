@@ -7,8 +7,8 @@ function Movies() {
     return(
         <div className="Movies">
             <SearchForm />
-            <MoviesCardList />            
-
+            <MoviesCardList /> 
+            
         </div>
     )
 }
