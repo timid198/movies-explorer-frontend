@@ -10,6 +10,8 @@ import Login from '../Login/Login';
 import Register from '../Register/Register';
 import Footer from '../Footer/Footer';
 
+import cards from '../../utils/cards';
+
 function App() {
   return (
     <div className="App">
@@ -21,7 +23,7 @@ function App() {
           <Main />
         </Route>        
         <Route path="/movies">
-          <Movies />
+          <Movies cards={cards} />
         </Route>
         <Route path="/saved-movies">
           <SavedMovies />

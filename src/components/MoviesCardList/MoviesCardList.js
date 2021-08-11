@@ -1,11 +1,12 @@
 import React from 'react';
 import './MoviesCardList.css';
+import MoviesCard from '../MoviesCard/MoviesCard';
 
-function MoviesCardList() {
+function MoviesCardList({cards}) {
     return (
-        <div className="movies-card-list">
-
-        </div>
+        <section className="movies-card-list">
+            {cards.map((item) => (<MoviesCard card={item} />))}
+        </section>
     )
 }
 
