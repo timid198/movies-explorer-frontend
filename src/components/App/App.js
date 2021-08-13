@@ -11,6 +11,7 @@ import Register from '../Register/Register';
 import Footer from '../Footer/Footer';
 
 import cards from '../../utils/cards';
+import savedCards from '../../utils/saved-cards';
 
 function App() {
   return (
@@ -26,7 +27,7 @@ function App() {
           <Movies cards={cards} />
         </Route>
         <Route path="/saved-movies">
-          <SavedMovies />
+          <SavedMovies cards={savedCards} />
         </Route>
         <Route path="/profile">
           <Profile />

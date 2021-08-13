@@ -102,16 +102,27 @@
     color: #A0A0A0;
 }
 
-.movies-card__like {
+.movies-card__like-place {
     max-width: 14px;
     width: 100%;
     min-height: 12px;
     border: none;
-    background-image: url(../../images/unliked.svg);
     background-size: 14px, 12px, cover;
     background-repeat: no-repeat;
     background-color: transparent;
     cursor: pointer;
+}
+
+.movies-card__unlike {    
+    background-image: url(../../images/unliked.svg);
+}
+
+.movies-card__like {    
+    background-image: url(../../images/liked.svg);
+}
+
+.movies-card__remove {    
+    background-image: url(../../images/remove.svg);
 }
 
 @media screen and (max-width: 320px) {

@@ -8,7 +8,9 @@ function Movies({cards}) {
         <div className="Movies">
             <SearchForm />
             <MoviesCardList cards={cards} /> 
-            
+            <div className="Movies__add">
+                <button type="button" className="Movies__more">Ещё</button>
+            </div>            
         </div>
     )
 }
