@@ -1,11 +1,11 @@
 .header {
     grid-area: header;
+    position: relative;
     max-width: 1280px;
     width: 100%;
     min-height: 74px;
     margin: 0;
     padding: 0;
-    background-color: #DDDEE3;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -24,23 +24,10 @@
     }
 }
 
-.header-navigation {
-    max-width: 300px;
-    width: 100%;
-    align-self: center;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    padding: 0 0 0 70px;
-}
-
-@media screen and (max-width: 768px) {
-    .header-navigation {
-        padding: 0 0 0 30px;
-    }
-}
-
 .header-logo {
+    position: absolute;
+    top: 18px;
+    left: 70px;
     background-image: url(../../images/logo.svg);
     background-size: 38px, 38px, cover;
     background-repeat: no-repeat;
@@ -49,25 +36,41 @@
     width: 100%;
 }
 
+@media screen and (min-width: 321px) and (max-width: 768px) {
+    .header-logo {
+        left: 30px;
+    }
+}
+
+@media screen and (max-width: 320px) {
+    .header-logo {
+        left: 14px;
+    }
+}
+
 .header-auth {
-    padding-right: 70px;
+    position: absolute;
+    right: 70px;
+    top: 21px;
     max-width: 184px;
     width: 100%;
     align-self: center;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
+    display: grid;
+    grid-auto-flow: column;
+    grid-gap: 30px;
+    grid-auto-columns: max-content;
 }
 
 @media screen and (max-width: 768px) {
     .header-auth {
-        padding-right: 30px;
+        right: 30px;
     }
 }
 
 @media screen and (max-width: 320px) {
     .header-auth {
-        max-width: 130px;
+        right: 14px;
+        top: 24px;
     }
 }
 
@@ -119,9 +122,9 @@
 }
 
 .header-profile {
-    display: none;
-    position: relative;
-    align-self: center;
+    position: absolute;
+    right: 70px;
+    top: 21px;
     max-width: 100px;
     width: 100%;
     min-height: 32px;
@@ -130,6 +133,12 @@
     background-repeat: no-repeat;
     border-radius: 50px;
     opacity: 1;
+}
+
+@media screen and (max-width: 1279px) {
+    .header-profile {
+        display: none;
+    }
 }
 
 .header-profile:hover {

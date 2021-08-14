@@ -1,0 +1,33 @@
+.form__area {
+    width: 100%;
+    margin: 0;
+    padding: 0 0 24px;
+    display: flex;
+    flex-direction: column;
+}
+
+.form__label {
+    margin: 0;
+    padding: 0 0 5px;
+    font-family: Inter;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 10px;
+    line-height: 12px;
+    color: #A0A0A0;
+}
+
+.form__input {
+    margin: 0;
+    padding: 0 0 10px;
+    border: none;
+    outline: none;
+    background-color: transparent;
+    font-family: Inter;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 17px;
+    color: #000000;
+    border-bottom: 1px solid #E8E8E8;
+}

@@ -1,10 +1,17 @@
 .navigation {
-    display: none;
-    flex-direction: row;
+    position: absolute;
+    top: 28px;
+    left: 152px;
+    max-width: 330px;
     grid-auto-flow: column;
     grid-gap: 16px;
     grid-auto-columns: max-content;
-    padding: 0 0 0 44px;
+}
+
+@media screen and (max-width: 1279px) {
+    .navigation {
+        display: none;
+    }
 }
 
 .navigation_open {
@@ -12,6 +19,7 @@
 }
 
 .navigation-point {
+    padding-right: 16px;
     text-decoration: none;
     font-style: normal;
     font-weight: 500;
@@ -19,6 +27,12 @@
     line-height: 18px;
     color: #000000;
     opacity: 1;
+}
+
+@media screen and (max-width: 1279px) {
+    .header--point {
+        display: inline;
+    }
 }
 
 .navigation-point:hover {
