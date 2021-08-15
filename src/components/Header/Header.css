@@ -148,3 +148,43 @@
 .header-profile_open {
     display: block;
 }
+
+.header-burger {
+    display: none;
+    position: absolute;
+    max-width: 44px;
+    width: 100%;
+    min-height: 44px;
+    padding: 10px 8px;
+    right: 70px;
+    top: 21px;
+    border: none;
+    background-image: url(../../images/burger.svg);
+    background-size: 44px, 44px, cover;
+    background-color: transparent;
+    cursor: pointer;
+}
+
+@media screen and (max-width: 1279px) {
+    .header-burger {
+        display: block;
+    }
+}
+
+@media screen and (min-width: 321px) and (max-width: 768px) {
+    .header-burger {
+        right: 30px;
+        top: 15px;
+    }
+}
+
+@media screen and (max-width: 320px) {
+    .header-burger {
+        max-width: 40px;
+        min-height: 43px;
+        padding: 10px 9px;
+        right: 14px;
+        top: 15px;
+        background-size: 40px, 43px, cover;
+    }
+}

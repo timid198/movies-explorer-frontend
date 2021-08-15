@@ -1,0 +1,68 @@
+.popup {
+    position: fixed;
+    top:0;
+    left:0;
+    right: 0;
+    bottom: 0;
+    z-index: 1;
+    visibility: hidden;
+    opacity: 0;
+    transition: visibility 1s linear, opacity 1s linear;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    background-color: rgba(0, 0, 0, 0.3);
+}
+
+.popup_open {
+    visibility: visible;
+    opacity: 1;
+}
+
+.popup__main {
+    max-width: 520px;
+    width: 100%;
+    background-color: #FAFAFA;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    padding: 159px 0 90px;
+}
+
+@media screen and (max-width: 320px) {
+    .popup__main {
+        max-width: 320px;
+        padding: 144px 0 46px;
+    }
+}
+
+.popup__close {
+    position: absolute;
+    top: 22px;
+    right: 22px;
+    max-width: 22px;
+    width: 22px;
+    min-height: 22px;
+    background-image: url(../../images/remove.svg);
+    background-size: 22px, 22px, cover;
+    background-repeat: no-repeat;
+    background-color: transparent;
+    cursor: pointer;
+    border: none;
+}
+
+.popup__profile {
+    max-width: 100px;
+    width: 100%;
+    min-height: 32px;
+    background-image: url(../../images/profile.svg);
+    background-size: 100px, 32px, cover;
+    background-repeat: no-repeat;
+    border-radius: 50px;
+    opacity: 1;
+}
+
+.popup__profile:hover {
+    opacity: 0.8;
+}
