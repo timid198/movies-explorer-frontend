@@ -5,6 +5,7 @@ const savedCards = [
         duration: '1ч 42м',
         like: true,
         save: true,
+        _id: 8,
     },
     { 
         name: 'Киноальманах «100 лет дизайна»',
@@ -12,6 +13,7 @@ const savedCards = [
         duration: '1ч 42м',
         like: true,
         save: true,
+        _id: 9,
     },
     { 
         name: 'В погоне за Бенкси',
@@ -19,6 +21,7 @@ const savedCards = [
         duration: '1ч 42м',
         like: true,
         save: true,
+        _id: 10,
     },
 ];
 

@@ -1,29 +1,25 @@
 .movies-card-list {
-    max-width: 1280px;
     width: 100%;
     display: grid;
     grid-auto-flow: row;
     grid-gap: 40px;
-    grid-auto-columns: 1140px;
+    grid-auto-columns: 90%;
     align-items: center;
     justify-content: center;
     background-color: #FAFAFA;
     padding: 70px 0 10px 0;
-    margin: 0 auto;
+    margin: 0;
 }
 
 @media screen and (min-width: 321px) and (max-width: 768px) {
     .movies-card-list {
-        max-width: 768px;
-        grid-auto-columns: 708px;
         padding: 60px 0 30px 0;
     }
 }
 
 @media screen and (max-width: 320px) {
     .movies-card-list {
-        max-width: 320px;
-        grid-auto-columns: 300px;
+        width: 93%;
         grid-gap: 20px;
         padding: 40px 0 20px 0;
     }

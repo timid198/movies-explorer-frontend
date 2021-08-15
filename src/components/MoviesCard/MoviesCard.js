@@ -14,7 +14,7 @@ const like = `movies-card__like-place ${card.like && card.save ? 'movies-card__r
                 </div>
                 <button type="button" className={like} />
             </div>
-            <div style ={ { backgroundImage : `url(${card.image})` } } className="movies-card__image"></div>
+            <img src={card.image} alt={card.name} className="movies-card__image" />
         </div>
     )
 }

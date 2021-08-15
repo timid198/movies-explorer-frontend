@@ -5,6 +5,7 @@ const cards = [
         duration: '1ч 42м',
         like: true,
         save: false,
+        _id: 1,
     },
     { 
         name: 'Киноальманах «100 лет дизайна»',
@@ -12,6 +13,7 @@ const cards = [
         duration: '1ч 42м',
         like: true,
         save: false,
+        _id: 2,
     },
     { 
         name: 'В погоне за Бенкси',
@@ -19,6 +21,7 @@ const cards = [
         duration: '1ч 42м',
         like: true,
         save: false,
+        _id: 3,
     },
     { 
         name: 'Баския: Взрыв реальности',
@@ -26,6 +29,7 @@ const cards = [
         duration: '1ч 42м',
         like: false,
         save: false,
+        _id: 4,
     },
     { 
         name: 'Бег это свобода',
@@ -33,6 +37,7 @@ const cards = [
         duration: '1ч 42м',
         like: false,
         save: false,
+        _id: 5,
     },
     { 
         name: 'Киноальманах «100 лет дизайна»',
@@ -40,6 +45,7 @@ const cards = [
         duration: '1ч 42м',
         like: false,
         save: false,
+        _id: 6,
     },
     { 
         name: 'Киноальманах «100 лет дизайна»',
@@ -47,6 +53,7 @@ const cards = [
         duration: '1ч 42м',
         like: false,
         save: false,
+        _id: 7,
     },
 ];
 

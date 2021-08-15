@@ -1,32 +1,15 @@
 .search-form {
-    max-width: 1280px;
     width: 100%;
-    min-height: 172px;
     background-color: #FAFAFA;
     display: flex;
     flex-direction: column;
+    align-items: center;
     padding: 70px 0 0;
 }
 
-@media screen and (min-width: 321px) and (max-width: 768px) {
-    .search-form {
-        max-width: 768px;
-        min-height: 180px;
-    }
-}
-
-@media screen and (max-width: 320px) {
-    .search-form {
-        max-width: 320px;
-        min-height: 250px;
-    }
-}
-
-.search-form__input-area {
-    max-width: 1140px;
-    width: 100%;
-    min-height: 72px;    
-    margin: 0 auto;
+.search-form__input-area {    
+    width: 90%;  
+    margin: 0;
     padding: 0;
     border: 1.5px solid;
     border-color: rgba(170, 170, 170, 0.2);
@@ -36,20 +19,18 @@
 
 @media screen and (min-width: 321px) and (max-width: 768px) {
     .search-form__input-area {
-        max-width: 708px;
+        width: 92%;
     }
 }
 
 @media screen and (max-width: 320px) {
     .search-form__input-area {
-        max-width: 292px;
-        min-height: 56px;
+        width: 91%;
     }
 }
 
 .search-form__search-section {
-    max-width: 100%;
-    min-height: 52px;
+    width: 98%;
     padding: 10px;
     display: flex;
     flex-direction: row;
@@ -58,14 +39,12 @@
 
 @media screen and (max-width: 320px) {
     .search-form__search-section {
-        min-height: 44px;
         padding: 6px;
     }
 }
 
 .search-form__input {
-    max-width: 1020px;
-    width: 100%;
+    width: 70%;
     padding: 15px 0 15px 15px;
     border: none;
     font-family: Inter;
@@ -78,15 +57,12 @@
     background-color: #FAFAFA;
 }
 
-@media screen and (min-width: 321px) and (max-width: 768px) {
-    .search-form__input {
-        max-width: 588px;
-    }
+.search-form__input:focus {
+    color: black;
 }
 
 @media screen and (max-width: 320px) {
     .search-form__input {
-        max-width: 314px;
         padding: 20px 0 20px 20px;
         font-size: 16px;
         line-height: 16px;
@@ -94,8 +70,7 @@
 }
 
 .search-form__submit {
-    max-width: 100px;
-    width: 100%;
+    width: 100px;
     min-height: 52px;
     padding: 0;
     margin: 0;
@@ -113,6 +88,11 @@
     color: #FFFFFF;
     border-radius: 5px;
     border: none;
+    opacity: 1;
+}
+
+.search-form__submit:hover {
+    opacity: 0.8;
 }
 
 @media screen and (max-width: 320px) {
@@ -123,11 +103,9 @@
 }
 
 .search-form__selection {
-    max-width: 1140px;
-    width: 100%;
-    min-height: 90px;
+    width: 90%;
     padding: 26px 0 44px;   
-    margin: 0 auto;
+    margin: 0;
     border-top: none;
     border-left: none;
     border-right: none;
@@ -138,8 +116,7 @@
 
 @media screen and (min-width: 321px) and (max-width: 768px) {
     .search-form__selection {
-        max-width: 708px;
-        min-height: 98px;
+        width: 92%;
         padding: 26px 0 51px;
     }
 }

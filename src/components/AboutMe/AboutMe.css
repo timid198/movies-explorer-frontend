@@ -227,28 +227,24 @@
 }
 
 .about-me__foto {
-    background-image: url(../../images/me-foto.jpg);
-    background-size: 270px, 327px, cover;
-    background-repeat: no-repeat;
-    background-position: center;
-    max-width: 270px;
-    width: 100%;
-    min-height: 327px;
+    max-width: 100%;    
+    max-height: 100%;
+    width: 270px;
+    height: 327px;
+    object-fit: cover;
     border-radius: 10px;
 }
 
 @media screen and (min-width: 321px) and (max-width: 768px) {
     .about-me__foto {
-        background-size: 255px, 307px, cover;
-        max-width: 255px;
-        min-height: 307px;
+        width: 255px;
+        height: 307px;
     }
 }
 
 @media screen and (max-width: 320px) {
     .about-me__foto {
-        background-size: 292px, 352px, cover;
-        max-width: 292px;
-        min-height: 352px;
+        width: 292px;
+        height: 352px;
     }
 }
