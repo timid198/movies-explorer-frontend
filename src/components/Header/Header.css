@@ -1,12 +1,24 @@
 .header {
     grid-area: header;
     position: relative;
-    width: 100%;
+    max-width: 1280px;
     margin: 0;
     padding: 74px 0 0;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+}
+
+@media screen and (min-width: 321px) and (max-width: 768px) {
+    .header {
+        max-width: 768px;
+    }
+}
+
+@media screen and (max-width: 320px) {
+    .header {
+        max-width: 320px;
+    }
 }
 
 .header-logo {
@@ -60,6 +72,7 @@
 
 .header-auth__registration {
     position: relative;
+    font-family: 'Inter', 'Arial', 'Helvetica', sans-serif;
     align-self: center;
     font-style: normal;
     font-weight: 500;
@@ -84,6 +97,7 @@
     position: relative;
     align-self: center;
     padding: 8px 20px;
+    font-family: 'Inter', 'Arial', 'Helvetica', sans-serif;
     font-style: normal;
     font-weight: 500;
     font-size: 12px;

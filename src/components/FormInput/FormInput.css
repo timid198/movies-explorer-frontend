@@ -9,7 +9,7 @@
 .form__label {
     margin: 0;
     padding: 0 0 5px;
-    font-family: Inter;
+    font-family: 'Inter', 'Arial', 'Helvetica', sans-serif;
     font-style: normal;
     font-weight: normal;
     font-size: 10px;
@@ -23,7 +23,7 @@
     border: none;
     outline: none;
     background-color: transparent;
-    font-family: Inter;
+    font-family: 'Inter', 'Arial', 'Helvetica', sans-serif;
     font-style: normal;
     font-weight: normal;
     font-size: 14px;

@@ -1,9 +1,9 @@
 .portfolio {
     max-width: 1280px;
-    width: 100%;
-    min-height: 425px;
+    min-height: 425px;    
     display: flex;
     flex-direction: column;
+    align-items: center;
     background-color: #FAFAFA;
 }
 
@@ -22,11 +22,10 @@
 }
 
 .portfolio-title {
-    max-width: 1140px;
-    width: 100%;
-    margin: 0 auto;
+    width: 90%;
+    margin: 0;
     padding: 0;
-    font-family: Inter;
+    font-family: 'Inter', 'Arial', 'Helvetica', sans-serif;
     font-style: normal;
     font-weight: normal;
     font-size: 18px;
@@ -37,13 +36,13 @@
 
 @media screen and (min-width: 321px) and (max-width: 768px) {
     .portfolio-title {
-        max-width: 668px;
+        width: 87%;
     }
 }
 
 @media screen and (max-width: 320px) {
     .portfolio-title {
-        max-width: 292px;
+        width: 91.25%;
         font-size: 14px;
         line-height: 20px;
     }
@@ -51,22 +50,21 @@
 
 
 .portfolio-links {
-    max-width: 1140px;
-    width: 100%;
+    width: 90%;
     padding: 30px 0 125px;
-    margin: 0 auto;
+    margin: 0;
 }
 
 @media screen and (min-width: 321px) and (max-width: 768px) {
     .portfolio-links {
-        max-width: 668px;
+        width: 87%;
         padding: 30px 0 90px;
     }
 }
 
 @media screen and (max-width: 320px) {
     .portfolio-links {
-        max-width: 292px;
+        width: 91.25%;
         padding: 20px 0 70px;
     }
 }
@@ -84,7 +82,7 @@
 
 .portfolio-app {
     margin: 0;
-    font-family: Inter;
+    font-family: 'Inter', 'Arial', 'Helvetica', sans-serif;
     font-style: normal;
     font-weight: normal;
     font-size: 30px;
@@ -109,20 +107,19 @@
 .portfolio-link {
     align-self: center;
     text-decoration: none;
-    max-width: 29px;
-    width: 100%;
+    width: 2.543%;
     min-height: 60px;
 }
 
 @media screen and (min-width: 321px) and (max-width: 768px) {
     .portfolio-link {
-        max-width: 27px;
+        width: 4.1%;
     }
 }
 
 @media screen and (max-width: 320px) {
     .portfolio-link {
-        max-width: 18px;
+        width: 6.164%;
         min-height: 28px;
     }
 }

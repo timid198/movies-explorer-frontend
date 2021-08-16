@@ -36,6 +36,7 @@
     display: none;
     padding-right: 16px;
     text-decoration: none;
+    font-family: 'Inter', 'Arial', 'Helvetica', sans-serif;
     font-style: normal;
     font-weight: 500;
     font-size: 13px;
@@ -57,6 +58,7 @@
 .navigation-point {
     padding-right: 16px;
     text-decoration: none;
+    font-family: 'Inter', 'Arial', 'Helvetica', sans-serif;
     font-style: normal;
     font-weight: normal;
     font-size: 13px;

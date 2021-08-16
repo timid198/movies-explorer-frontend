@@ -1,9 +1,9 @@
 .techs {
     max-width: 1280px;
-    width: 100%;
     min-height: 625px;
     display: flex;
     flex-direction: column;
+    align-items: center;
     background-color: #F5F5F5;
 }
 
@@ -22,11 +22,10 @@
 }
 
 .techs-title {
-    max-width: 1140px;
-    width: 100%;
+    width: 90%;
     padding: 100px 0 23px;
-    margin: 0 auto;
-    font-family: Inter;
+    margin: 0;
+    font-family: 'Inter', 'Arial', 'Helvetica', sans-serif;
     font-style: normal;
     font-weight: normal;
     font-size: 22px;
@@ -38,14 +37,14 @@
 
 @media screen and (min-width: 321px) and (max-width: 768px) {
     .techs-title {
-        max-width: 668px;
+        width: 87%;
         padding: 90px 0 23px;
     }
 }
 
 @media screen and (max-width: 320px) {
     .techs-title {
-        max-width: 284px;
+        width: 88.75%;
         padding: 70px 0 28px;
         font-size: 18px;
         line-height: 22px;
@@ -53,11 +52,10 @@
 }
 
 .techs-header {
-    max-width: 600px;
-    width: 100%;
+    width: 47%;
     padding: 90px 0 0;
-    margin: 0 auto;
-    font-family: Inter;
+    margin: 0;
+    font-family: 'Inter', 'Arial', 'Helvetica', sans-serif;
     font-style: normal;
     font-weight: normal;
     font-size: 50px;
@@ -69,13 +67,14 @@
 
 @media screen and (min-width: 321px) and (max-width: 768px) {
     .techs-header {
+        width: 90%;
         padding: 80px 0 0;
     }
 }
 
 @media screen and (max-width: 320px) {
     .techs-header {
-        max-width: 292px;
+        width: 91.25%;
         padding: 60px 0 0;
         font-size: 30px;
         line-height: 36px;
@@ -83,11 +82,10 @@
 }
 
 .techs-about {
-    max-width: 460px;
-    width: 100%;
+    width: 36%;
     padding: 26px 0 0;
-    margin: 0 auto;
-    font-family: Inter;
+    margin: 0;
+    font-family: 'Inter', 'Arial', 'Helvetica', sans-serif;
     font-style: normal;
     font-weight: normal;
     font-size: 14px;
@@ -99,6 +97,7 @@
 
 @media screen and (min-width: 321px) and (max-width: 768px) {
     .techs-about {
+        width: 70%;
         padding: 22px 0 0;
         font-size: 12px;
         line-height: 18px;
@@ -107,7 +106,7 @@
 
 @media screen and (max-width: 320px) {
     .techs-about {
-        max-width: 292px;
+        width: 91.25%;
         padding: 24px 0 0;
         font-size: 11px;
         line-height: 16px;
@@ -115,19 +114,24 @@
 }
 
 .techs-technologys {
-    max-width: 690px;
-    width: 100%;
+    width: 54%;
     min-height: 60px;
     padding: 100px 0;
-    margin: 0 auto;
+    margin: 0;
     display: grid;
     grid-template-columns: repeat(7, 1fr);
     grid-gap: 10px;
 }
 
+@media screen and (min-width: 769px) and (max-width: 1024px) {
+    .techs-technologys {
+        width: 84%;
+    }
+}
+
 @media screen and (min-width: 321px) and (max-width: 768px) {
     .techs-technologys {
-        max-width: 648px;
+        width: 84%;
         min-height: 57px;
         padding: 83px 0 90px;
     }
@@ -135,7 +139,6 @@
 
 @media screen and (min-width: 601px) and (max-width: 720px) {
     .techs-technologys {
-        max-width: 366px;
         grid-template-columns: repeat(4, 1fr);
         grid-template-rows: repeat(2, 1fr);
     }
@@ -143,7 +146,6 @@
 
 @media screen and (min-width: 321px) and (max-width: 600px) {
     .techs-technologys {
-        max-width: 272px;
         grid-template-columns: repeat(3, 1fr);
         grid-template-rows: repeat(3, 1fr);
     }
@@ -153,7 +155,7 @@
     .techs-technologys {
         grid-template-columns: repeat(2, 1fr);
         grid-template-rows: repeat(4, 1fr);
-        max-width: 178px;
+        width: 55.625%;
         min-height: 258px;
         padding: 50px 0 60px;
     }
@@ -167,7 +169,7 @@
     max-width: 90px;
     width: 100%;
     min-height: 60px;
-    font-family: Inter;
+    font-family: 'Inter', 'Arial', 'Helvetica', sans-serif;
     font-style: normal;
     font-weight: normal;
     font-size: 14px;

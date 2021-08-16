@@ -1,8 +1,8 @@
 .about-project {
     display: flex;
     flex-direction: column;
+    align-items: center;
     max-width: 1280px;
-    width: 100%;
     min-height: 605px;
     background-color: #FAFAFA;
 }
@@ -22,11 +22,10 @@
 }
 
 .about-project__title {
-    max-width: 1140px;
-    width: 100%;
-    margin: 0 auto;
-    padding:110px 0 23px 0;
-    font-family: Inter;
+    width: 90%;
+    margin: 0;
+    padding: 110px 0 23px 0;
+    font-family: 'Inter', 'Arial', 'Helvetica', sans-serif;
     font-style: normal;
     font-weight: normal;
     font-size: 22px;
@@ -38,14 +37,14 @@
 
 @media screen and (min-width: 321px) and (max-width: 768px) {
     .about-project__title {
-        padding:90px 0 23px 0;
-        max-width: 668px;
+        padding: 90px 0 23px 0;
+        width: 87%;
     }
 }
 
 @media screen and (max-width: 320px) {
     .about-project__title {
-        max-width: 284px;
+        width: 88.75%;
         padding:70px 0 28px 0;
         font-size: 18px;
         line-height: 22px;
@@ -53,9 +52,8 @@
 }
 
 .about-project__content {
-    max-width: 1140px;
-    width: 100%;
-    margin: 0 auto;
+    width: 90%;
+    margin: 0;
     padding: 70px 0 0;
     display: flex;
     flex-direction: row;
@@ -64,13 +62,13 @@
 
 @media screen and (min-width: 321px) and (max-width: 768px) {
     .about-project__content {
-        max-width: 668px;
+        max-width: 87%;
     }
 }
 
 @media screen and (max-width: 320px) {
     .about-project__content {
-        max-width: 284px;
+        max-width: 88.75%;
         flex-direction: column;
         padding: 60px 0 0;
         justify-content: flex-start;
@@ -78,27 +76,26 @@
 }
 
 .about-project__stages {
-    max-width: 550px;
-    width: 100%;
+    width: 43%;
     display: flex;
     flex-direction: column;
 }
 
 @media screen and (min-width: 321px) and (max-width: 768px) {
     .about-project__stages {
-        max-width: 319px;
+        width: 41.5%;
     }
 }
 
 @media screen and (max-width: 320px) {
     .about-project__stages {
-        max-width: 284px;
+        width: 88.75%;
     }
 }
 
 .about-project__stages-title {
     margin: 0;
-    font-family: Inter;
+    font-family: 'Inter', 'Arial', 'Helvetica', sans-serif;
     font-style: normal;
     font-weight: normal;
     font-size: 20px;
@@ -117,7 +114,7 @@
 .about-project__stages-content {
     margin: 0;
     padding: 26px 0 0;
-    font-family: Inter;
+    font-family: 'Inter', 'Arial', 'Helvetica', sans-serif;
     font-style: normal;
     font-weight: normal;
     font-size: 14px;
@@ -140,28 +137,27 @@
 }
 
 .about-project__weeks {
-    max-width: 550px;
-    width: 100%;
+    width: 43%;
     display: flex;
     flex-direction: column;
 }
 
 @media screen and (min-width: 321px) and (max-width: 768px) {
     .about-project__weeks {
-        max-width: 319px;
+        width: 41.5%;
     }
 }
 
 @media screen and (max-width: 320px) {
     .about-project__weeks {
-        max-width: 284px;
+        width: 88.75%;
         padding: 56px 0 0;
     }
 }
 
 .about-project__weeks-title {
     margin: 0;
-    font-family: Inter;
+    font-family: 'Inter', 'Arial', 'Helvetica', sans-serif;
     font-style: normal;
     font-weight: normal;
     font-size: 20px;
@@ -180,7 +176,7 @@
 .about-project__weeks-content {
     margin: 0;
     padding: 26px 0 0;
-    font-family: Inter;
+    font-family: 'Inter', 'Arial', 'Helvetica', sans-serif;
     font-style: normal;
     font-weight: normal;
     font-size: 14px;
@@ -204,34 +200,35 @@
 
 .about-project__infografic {
     padding: 110px 0 14px 0;
-    max-width: 1140px;
-    width: 100%;
-    margin: 0 auto;
+    width: 90%;
+    margin: 0;
     display: flex;
     flex-direction: row;
 }
 
 @media screen and (min-width: 321px) and (max-width: 768px) {
     .about-project__infografic {
-        max-width: 668px;
+        width: 87%;
         padding: 93px 0 14px 0;
     }
 }
 
 @media screen and (max-width: 320px) {
     .about-project__infografic {
-        max-width: 284px;
+        width: 88.75%;
         padding: 60px 0 10px 0;
     }
 }
 
 .about-project__infografic-backend {
-    display: block;
-    max-width: 228px;
-    width: 100%;    
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 20%;    
     min-height: 18px;
     padding: 9px 0;
-    font-family: Inter;
+    font-family: 'Inter', 'Arial', 'Helvetica', sans-serif;
     font-style: normal;
     font-weight: normal;
     font-size: 14px;
@@ -241,25 +238,22 @@
     background-color: #3456F3;
 }
 
-@media screen and (min-width: 321px) and (max-width: 768px) {
-    .about-project__infografic-backend {
-        max-width: 140px;
-    }
-}
-
 @media screen and (max-width: 320px) {
     .about-project__infografic-backend {
-        max-width: 100px;
+        font-size: 11px;
+        line-height: 13px;
     }
 }
 
 .about-project__infografic-frontend {
-    display: block;
-    max-width: 912px;
-    width: 100%;    
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 80%;    
     min-height: 18px;
     padding: 9px 0;
-    font-family: Inter;
+    font-family: 'Inter', 'Arial', 'Helvetica', sans-serif;
     font-style: normal;
     font-weight: normal;
     font-size: 14px;
@@ -269,46 +263,39 @@
     background-color: #F2F2F2;
 }
 
-@media screen and (min-width: 321px) and (max-width: 768px) {
-    .about-project__infografic-frontend {
-        max-width: 528px;
-    }
-}
-
 @media screen and (max-width: 320px) {
     .about-project__infografic-frontend {
-        max-width: 184px;
+        font-size: 11px;
+        line-height: 13px;
     }
 }
 
 .about-project__infografic-name {
-    max-width: 1140px;
-    width: 100%;
+    width: 90%;
     padding: 0 0 110px 0;
-    margin: 0 auto;
+    margin: 0;
     display: flex;
     flex-direction: row;
 }
 
 @media screen and (min-width: 321px) and (max-width: 768px) {
     .about-project__infografic-name {
-        max-width: 668px;
+        width: 87%;
         padding: 0 0 90px 0;
     }
 }
 
 @media screen and (max-width: 320px) {
     .about-project__infografic-name {
-        max-width: 284px;
+        width: 88.75%;
         padding: 0 0 70px 0;
     }
 }
 
 .about-project__infografic-name-backend {
-    max-width: 228px;
-    width: 100%;
+    width: 20%;
     margin: 0;
-    font-family: Inter;
+    font-family: 'Inter', 'Arial', 'Helvetica', sans-serif;
     font-style: normal;
     font-weight: 500;
     font-size: 14px;
@@ -319,21 +306,24 @@
 
 @media screen and (min-width: 321px) and (max-width: 768px) {
     .about-project__infografic-name-backend {
-        max-width: 140px;
+        font-family: 'Suisse Intl';
+        font-weight: normal;
     }
 }
 
 @media screen and (max-width: 320px) {
     .about-project__infografic-name-backend {
-        max-width: 100px;
+        font-family: 'Suisse Intl';
+        font-weight: normal;
+        font-size: 11px;
+        line-height: 13px;
     }
 }
 
 .about-project__infografic-name-frontend {
-    max-width: 912px;
-    width: 100%;
+    width: 80%;
     margin: 0;
-    font-family: Inter;
+    font-family: 'Inter', 'Arial', 'Helvetica', sans-serif;
     font-style: normal;
     font-weight: 500;
     font-size: 14px;
@@ -344,12 +334,16 @@
 
 @media screen and (min-width: 321px) and (max-width: 768px) {
     .about-project__infografic-name-frontend {
-        max-width: 528px;
+        font-family: 'Suisse Intl';
+        font-weight: normal;
     }
 }
 
 @media screen and (max-width: 320px) {
     .about-project__infografic-name-frontend {
-        max-width: 184px;
+        font-family: 'Suisse Intl';
+        font-weight: normal;
+        font-size: 11px;
+        line-height: 13px;
     }
 }

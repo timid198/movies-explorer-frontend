@@ -1,6 +1,5 @@
 .promo {
     max-width: 1280px;
-    width: 100%;
     min-height: 524px;
     display: flex;
     flex-direction: row;
@@ -31,8 +30,8 @@
 .promo-title {
     margin: 0;
     padding: 0;
-    max-width: 730px;
-    font-family: Inter;
+    width: 57%;
+    font-family: 'Inter', 'Arial', 'Helvetica', sans-serif;
     font-style: normal;
     font-weight: normal;
     font-size: 50px;
@@ -44,7 +43,7 @@
 
 @media screen and (max-width: 320px) {
     .promo-title {
-        max-width: 300px;
+        width: 93.75%;
         font-size: 31px;
         line-height: 39px;
     }

@@ -3,7 +3,19 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 100%;
+    max-width: 1280px;
+}
+
+@media screen and (min-width: 321px) and (max-width: 768px) {
+    .Movies {
+        max-width: 768px;
+    }
+}
+
+@media screen and (max-width: 320px) {
+    .Movies {
+        max-width: 320px;
+    }
 }
 
 .Movies__add {
@@ -35,7 +47,7 @@
     border-radius: 6px;
     border: none;
     cursor: pointer;
-    font-family: Inter;
+    font-family: 'Inter', 'Arial', 'Helvetica', sans-serif;
     font-style: normal;
     font-weight: 500;
     font-size: 12px;
