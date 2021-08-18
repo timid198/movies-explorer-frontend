@@ -1,0 +1,9 @@
+.register-form {
+    padding: 128px 0 16px;
+}
+
+@media screen and (max-width: 320px) {
+    .register-form {
+        padding: 218px 0 14px;
+    }
+}

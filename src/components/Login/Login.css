@@ -1,0 +1,9 @@
+.login-form {
+    padding: 197px 0 16px;
+}
+
+@media screen and (max-width: 320px) {
+    .login-form {
+        padding: 285px 0 14px;
+    }
+}
