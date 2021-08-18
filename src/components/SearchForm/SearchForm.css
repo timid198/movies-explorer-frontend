@@ -195,16 +195,21 @@
 }
 
 .search-form__error {
+    visibility: hidden;
+    opacity: 0;
     position: absolute;
-    padding: 5px 0 0;
+    padding: 12px 0 0;
     width: 100%;
-}
-
-.search-form__error_active {
     font-family: 'Inter', 'Arial', 'Helvetica', sans-serif;
     font-style: normal;
     font-weight: normal;
     font-size: 10px;
     line-height: 12px;
     color: #EE3465;
+}
+
+.search-form__error_active {
+    display: flex;
+    visibility: visible;
+    opacity: 1;
 }
