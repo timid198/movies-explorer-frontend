@@ -1,13 +1,38 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import './SearchForm.css';
+import { useFormAndValidate } from '../../utils/FormWithValidation';
 
-function SearchForm() {
+function SearchForm({ handlerMovieSearch }) {
+
+const {values, handleChange, errors, isValid, resetForm} = useFormAndValidate();
+
+useEffect(()=> {
+    resetForm({movie:''});
+  },[]);
+
+function handleMovieSearch(evt) {
+    evt.preventDefault();
+    handlerMovieSearch({movie: values.movie})
+}
+
     return (
         <form className="search-form">
             <fieldset className="search-form__input-area">
                 <label className="search-form__search-section">
-                    <input type="text" name="movie" placeholder="Фильм" className="search-form__input" required />
-                    <button type="submit" className="search-form__submit">Поиск</button>
+                    <input 
+                     type="text" 
+                     name="movie"
+                     placeholder="Фильм"
+                     className={`search-form__input ${errors.movie ? 'search-form__input-error' : '' }`}
+                     required
+                     value={values.movie || ""}
+                     onChange={handleChange}
+                    />
+                    <button
+                     type="submit"
+                     className={`search-form__submit ${!isValid ? 'search-form__submit_disabled' : ''}`}
+                     disabled={!isValid ? true : ''}
+                    >Поиск</button>
                 </label>                
             </fieldset>
             <fieldset className="search-form__selection">
