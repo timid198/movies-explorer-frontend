@@ -27,14 +27,15 @@ function handleMovieSearch(evt) {
                      required
                      value={values.movie || ""}
                      onChange={handleChange}
-                    />
+                    />                    
                     <button
                      type="submit"
                      className={`search-form__submit ${!isValid ? 'search-form__submit_disabled' : ''}`}
                      disabled={!isValid ? true : ''}
                     >Поиск</button>
-                </label>                
+                </label>                              
             </fieldset>
+            <span className={`search-form__error ${errors.movie ? 'search-form__error_active' : ''}`} >{errors.movie}</span>
             <fieldset className="search-form__selection">
                 <label className="search-form__selection-section">
                     <input type="checkbox" className="search-form__selector search-form__selector-hidden" />

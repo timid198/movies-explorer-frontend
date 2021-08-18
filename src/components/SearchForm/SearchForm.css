@@ -193,3 +193,18 @@
         font-size: 11px;
     }
 }
+
+.search-form__error {
+    position: absolute;
+    padding: 5px 0 0;
+    width: 100%;
+}
+
+.search-form__error_active {
+    font-family: 'Inter', 'Arial', 'Helvetica', sans-serif;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 10px;
+    line-height: 12px;
+    color: #EE3465;
+}
