@@ -30,6 +30,12 @@
     object-fit: cover;
 }
 
+@media screen and (min-width: 321px) and (max-width: 468px) {
+    .movies-card__image {
+        width: 100%;
+    }
+}
+
 @media screen and (max-width: 320px) {
     .movies-card__image {
         width: 300px;
