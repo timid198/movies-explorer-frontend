@@ -11,10 +11,11 @@ import Register from '../Register/Register';
 import Footer from '../Footer/Footer';
 import Popup from '../Popup/Popup';
 import ErrorPopup from '../ErrorPopup/ErrorPopup';
+import * as api from '../../utils/api';
 
 import cards from '../../utils/cards';
 import savedCards from '../../utils/saved-cards';
-import headerColors from '../../utils/constants';
+import {headerColors} from '../../utils/constants';
 
 function App() {
 
@@ -26,6 +27,16 @@ function handleBurgerMenuClick() {
 
 function handleCloseClick() {
   setIsBurgerMenuOpen(false);
+}
+
+const [movies, setMovies] = useState([]);
+
+function getMovies(props) {
+  api.getContentFromBeatFilmMovies(props.movies)
+  .then((res) => {
+    console.log(res);
+    setMovies(res)})
+  .catch((err) => console.log(err))
 }
 
   return (
@@ -51,7 +62,10 @@ function handleCloseClick() {
           loginShow="none" 
           registerShow="none" 
           navShow="grid, [@media (max-width:1279px)]: display: none" />
-          <Movies cards={cards} />
+          <Movies
+           cards={movies}
+           onRecieveMovies={getMovies}
+           />
           <Footer />
         </Route>
         <Route path="/saved-movies">
