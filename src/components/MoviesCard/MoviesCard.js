@@ -2,10 +2,9 @@ import React from 'react';
 import './MoviesCard.css';
 
 function MoviesCard({card}) {
-    // console.log(card);
 
 const like = `movies-card__like-place ${card.like && card.save ? 'movies-card__remove' : card.like ? 'movies-card__like' : 'movies-card__unlike'}`;
-console.log()
+console.log(card.image.url.formats)
 
     return (
         <div className="movies-card">

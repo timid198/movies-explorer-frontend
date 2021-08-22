@@ -2,26 +2,29 @@ import React, { useEffect, useState, useRef } from 'react';
 import './SearchForm.css';
 import { useFormAndValidate } from '../../utils/FormWithValidation';
 
-function SearchForm({  onChange, onSubmit }) {
+function SearchForm({  onRecieveMovies }) {
 
-const {values, handleChange, errors, isValid} = useFormAndValidate();
+const {values, handleChange, errors, isValid, resetForm} = useFormAndValidate();
 
 const [ isInputFocused, setIsInputFocused ] = useState(false);
+const [isInputBlur, setIsInputBlur] = useState(false);
 
 useEffect(()=> {
-    setIsInputFocused(true);
-  }, []);
+    setIsInputFocused(false);
+    setIsInputBlur(false);
+  }, [isInputBlur]);
 
 const movieRef = useRef();
 
 function handleSubmit(evt) {
-    evt.preventDefault();
-    onSubmit();
-    onChange({
+    evt.preventDefault();   
+    onRecieveMovies({
           movies: movieRef.current.value,
         });
         movieRef.current.value = '';
 }
+
+console.log(isInputFocused);
 
     return (
         <form className="search-form" onSubmit={handleSubmit}>
@@ -36,17 +39,17 @@ function handleSubmit(evt) {
                      value={values.movie || ""}
                      onChange={handleChange}
                      onFocus={() => setIsInputFocused(true)}
+                     onBlur={() => setIsInputBlur(true)}
                      ref={movieRef}
-                     autoFocus
-                     minLength="1"
+                     formNoValidate
                     />  
                     <button
                      type="submit"
-                     className={`search-form__submit ${isValid ? 'search-form__submit_active' : ''}`}
-                     disabled={isValid ? false : true}                     
+                     className={`search-form__submit ${!isValid ? 'search-form__submit_disabled' : ''}`}
+                     disabled={!isValid ? true : ''}                     
                     >Поиск</button>
                 </label> 
-                <span className={`search-form__error ${errors.movie && isInputFocused ? 'search-form__error_active' : ''}`} >Нужно ввести ключевое слово</span>                             
+                <span className={`search-form__error ${(errors.movie || values.movie === '') && isInputFocused ? 'search-form__error_active' : ''}`} >Нужно ввести ключевое слово</span>                             
             </fieldset>            
             <fieldset className="search-form__selection">
                 <label className="search-form__selection-section">
