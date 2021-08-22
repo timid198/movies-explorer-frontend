@@ -20,20 +20,20 @@
 
 .Movies__add {
     width: 90%;
-    padding: 50px 0 80px;
+    padding: 0 0 80px;
 }
 
 @media screen and (min-width: 321px) and (max-width: 768px) {
     .Movies__add {
         width: 92%;
-        padding: 50px 0 80px;
+        padding: 0 0 80px;
     }
 }
 
 @media screen and (max-width: 320px) {
     .Movies__add {
         width: 93%;
-        padding: 50px 0 80px;
+        padding: 0 0 80px;
     }
 }
 
@@ -53,4 +53,82 @@
     font-size: 12px;
     line-height: 15px;
     color: #000000;
+}
+
+.Movies__more_none {
+    display: none;
+}
+
+.Movies__before-search {
+    padding: 70px 0 80px 0;
+}
+
+@media screen and (min-width: 321px) and (max-width: 768px) {
+    .Movies__before-search {
+        padding: 60px 0 80px 0;
+    }
+}
+
+@media screen and (max-width: 320px) {
+    .Movies__before-search {
+        padding: 40px 0 80px 0;
+    }
+}
+
+.Movies__nothing-yet {
+    width: 70%;
+    margin: 0;
+    padding: 0;
+    font-family: 'Inter', 'Arial', 'Helvetica', sans-serif;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 50px;
+    line-height: 58px;
+    text-align: center;
+    letter-spacing: -0.04em;
+    color: #000000;
+    padding: 70px 0 0 0;
+}
+
+@media screen and (min-width: 321px) and (max-width: 768px) {
+    .Movies__nothing-yet {
+        padding: 60px 0 0 0;
+    }
+}
+
+@media screen and (max-width: 320px) {
+    .Movies__nothing-yet {
+        font-size: 30px;
+        line-height: 36px;
+        padding: 40px 0 0 0;
+    }
+}
+
+.Movies__error {
+    width: 70%;
+    margin: 0;
+    padding: 0;
+    font-family: 'Inter', 'Arial', 'Helvetica', sans-serif;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 30px;
+    line-height: 36px;
+    text-align: center;
+    letter-spacing: -0.04em;
+    color: #000000;
+    padding: 70px 0 0 0;
+}
+
+@media screen and (min-width: 321px) and (max-width: 768px) {
+    .Movies__error {
+        padding: 60px 0 0 0;
+    }
+}
+
+@media screen and (max-width: 320px) {
+    .Movies__error {
+        font-size: 16px;
+        line-height: 18px;
+        padding: 40px 0 0 0;
+    }
 }

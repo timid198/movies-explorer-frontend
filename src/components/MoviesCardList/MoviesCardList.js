@@ -2,7 +2,7 @@ import React from 'react';
 import './MoviesCardList.css';
 import MoviesCard from '../MoviesCard/MoviesCard';
 
-function MoviesCardList({cards, page}) {
+function MoviesCardList({cards}) {
     return (
         <section className="movies-card-list">
             {cards.map((item) => (<MoviesCard key={item._id} card={item} />))}
