@@ -4,13 +4,14 @@ import SearchForm from '../SearchForm/SearchForm';
 import MoviesCardList from '../MoviesCardList/MoviesCardList';
 import Preloader from '../Preloader/Preloader';
 
-function Movies({cards}) {
+function Movies({cards, width}) {
     const [isSearchRequest, setIsSearchRequest] = useState({movies: ''});
     const [isActive, setIsActive] = useState(true);
     const [movieCount, setMovieCount] = useState(5);
     const [isMovieSearched, setIsMovieSearched] = useState(false);
     const [loading, setLoading] = useState(false);
     const [errorMessage, setErrorMessage] = useState(false);
+    const [moviesAdd, setMoviesAdd] = useState(3);
     
     function handleSearchRequest(props) {
         setIsSearchRequest(props);
@@ -46,7 +47,16 @@ function Movies({cards}) {
                 setLoading(false);
             }
         }    
-    };    
+    };  
+    
+    const appWidth = () => {
+        if (width > 320) {
+            setMoviesAdd(3);
+        }
+        if (width <= 320) {
+            setMoviesAdd(2);
+        }
+    }
 
     useEffect(() => {
         toAddMoviesInitial();
@@ -55,6 +65,10 @@ function Movies({cards}) {
     useEffect(() => {
         setMovieCount(5);
     }, [isSearchRequest]);
+
+    useEffect(() => {
+        setTimeout(() => appWidth(), 1000);
+    });
 
     return(
         <div className="Movies">
@@ -66,7 +80,7 @@ function Movies({cards}) {
             ) : ( (filteredMovies.length !== 0) ? (
             <div className="Movies__add">
                 <MoviesCardList cards={toAddingMovies} /> 
-                <button type="button" className={`Movies__more ${!isActive ? 'Movies__more_none' : ''}`} onClick={() => {setMovieCount(prevCount => prevCount + 3)}}>Ещё</button>
+                <button type="button" className={`Movies__more ${!isActive ? 'Movies__more_none' : ''}`} onClick={() => {setMovieCount(prevCount => prevCount + moviesAdd)}}>Ещё</button>
             </div>) : 
             ((!errorMessage) ? (<h2 className="Movies__nothing-yet">Ничего не найдено</h2>) : (<h2 className="Movies__error">Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз</h2>)))}         
         </div>

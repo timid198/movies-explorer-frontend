@@ -11,6 +11,7 @@ import Register from '../Register/Register';
 import Footer from '../Footer/Footer';
 import Popup from '../Popup/Popup';
 import ErrorPopup from '../ErrorPopup/ErrorPopup';
+import useWindowDimensions from '../../utils/Resize';
 import * as moviesApi from '../../utils/MoviesApi';
 
 import savedCards from '../../utils/saved-cards';
@@ -18,6 +19,7 @@ import {headerColors} from '../../utils/constants';
 
 function App() {
 
+const { width } = useWindowDimensions()
 const [isBurgerMenuOpen, setIsBurgerMenuOpen] = useState(false);
 
 function handleBurgerMenuClick() {
@@ -66,6 +68,7 @@ return (
           navShow="grid, [@media (max-width:1279px)]: display: none" />
           <Movies
            cards={movies}
+           width={width}
            />
           <Footer />
         </Route>
