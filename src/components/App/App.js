@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import '../App/App.css';
 import { Route, Switch } from 'react-router-dom';
 import Header from '../Header/Header';
@@ -11,9 +11,8 @@ import Register from '../Register/Register';
 import Footer from '../Footer/Footer';
 import Popup from '../Popup/Popup';
 import ErrorPopup from '../ErrorPopup/ErrorPopup';
-import * as api from '../../utils/api';
+import * as moviesApi from '../../utils/MoviesApi';
 
-import cards from '../../utils/cards';
 import savedCards from '../../utils/saved-cards';
 import {headerColors} from '../../utils/constants';
 
@@ -31,15 +30,18 @@ function handleCloseClick() {
 
 const [movies, setMovies] = useState([]);
 
-function getMovies(props) {
-  api.getContentFromBeatFilmMovies(props.movies)
+function getMovies() {
+  moviesApi.getContentFromBeatFilmMovies()
   .then((res) => {
-    console.log(res);
     setMovies(res)})
   .catch((err) => console.log(err))
 }
 
-  return (
+useEffect(() => {
+  getMovies();
+}, [])
+
+return (
     <div className="App"> 
       <Switch>
         <Route exact path="/">
@@ -64,7 +66,6 @@ function getMovies(props) {
           navShow="grid, [@media (max-width:1279px)]: display: none" />
           <Movies
            cards={movies}
-           onRecieveMovies={getMovies}
            />
           <Footer />
         </Route>

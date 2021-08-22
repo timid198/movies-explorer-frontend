@@ -47,7 +47,7 @@
 }
 
 .search-form__input {
-    width: 91.07;
+    width: 91.07%;
     padding: 15px 0 15px 15px;
     border: none;
     font-family: 'Inter', 'Arial', 'Helvetica', sans-serif;
@@ -94,9 +94,9 @@
     font-weight: 500;
     font-size: 14px;
     line-height: 18px;
-    text-align: center;    
-    background-color: #3456F3;
-    color: #FFFFFF;
+    text-align: center;  
+    background-color: #F8F8F8;
+    color: #C2C2C2;      
     border-radius: 5px;
     border: none;
     opacity: 1;
@@ -113,9 +113,9 @@
     }
 }
 
-.search-form__submit_disabled {
-    background-color: #F8F8F8;
-    color: #C2C2C2;
+.search-form__submit_active {
+    background-color: #3456F3;
+    color: #FFFFFF;
 }
 
 .search-form__selection {
