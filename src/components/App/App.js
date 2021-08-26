@@ -98,7 +98,7 @@ return (
           <Profile />
         </Route>
         <Route path="/signin">
-          <Login onSubmit />
+          <Login onUpdate={registerData} />
         </Route>
         <Route path="/signup">
           <Register onUpdate={registerData} />

@@ -1,4 +1,4 @@
-import React, {useEffect, useRef, useState} from 'react';
+import React, {useEffect, useRef} from 'react';
 import './Register.css';
 import AuthForm from '../AuthForm/AuthForm';
 import {useFormAndValidate} from '../../utils/FormWithValidation';
@@ -28,9 +28,7 @@ function Register({ onUpdate }) {
 
     useEffect(() => {
         checkInputValue();
-    });
-
-    
+    });    
 
     return (
         <AuthForm 
