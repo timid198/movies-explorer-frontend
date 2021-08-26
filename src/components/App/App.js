@@ -43,6 +43,10 @@ useEffect(() => {
   getMovies();
 }, [])
 
+const registerData = (props) => {
+  console.log(props);
+}
+
 return (
     <div className="App"> 
       <Switch>
@@ -94,10 +98,10 @@ return (
           <Profile />
         </Route>
         <Route path="/signin">
-          <Login />
+          <Login onSubmit />
         </Route>
         <Route path="/signup">
-          <Register />
+          <Register onUpdate={registerData} />
         </Route>
       </Switch>
 

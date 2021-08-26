@@ -110,6 +110,12 @@
     }
 }
 
+.auth-form__button-disabled {
+    background-color: #F8F8F8;
+    color: #C2C2C2;
+    cursor: default;
+}
+
 .auth-form__redirect {
     max-width: 100%;
     margin: 0 auto;
