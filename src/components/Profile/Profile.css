@@ -116,8 +116,13 @@
     line-height: 16px;
     text-align: center;
     color: #000000;
-    background-color: transparent;
+    background-color: transparent;    
+    opacity: 0.3;
+}
+
+.profile__edit-submit_active {
     cursor: pointer;
+    opacity: 1;
 }
 
 @media screen and (max-width: 320px) {
