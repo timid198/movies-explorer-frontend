@@ -158,3 +158,60 @@
         line-height: 15px;
     }
 }
+
+.register-input {
+    margin: 0;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.register-input__label {
+    font-family: 'Inter', 'Arial', 'Helvetica', sans-serif;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 11px;
+    line-height: 13px;
+    color: #000000;
+}
+
+.register-input__input {
+    width: 90%;
+    text-align: right;
+    margin: 0;
+    padding: 0;
+    border: none;
+    font-family: 'Inter', 'Arial', 'Helvetica', sans-serif;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 11px;
+    line-height: 13px;
+    color: #000000;
+    outline: none;
+    background-color: transparent;
+}
+
+.register-input__error {
+    color: #EE3465;
+}
+
+.register-input_error-hidden {
+    position: absolute;
+    visibility: hidden;
+    opacity: 0;
+    padding: 12px 0 0;
+    width: 100%;
+    font-family: 'Inter', 'Arial', 'Helvetica', sans-serif;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 10px;
+    line-height: 12px;
+    color: #EE3465;
+}
+
+.register-input_error-active {
+    display: flex;
+    visibility: visible;
+    opacity: 1;
+}

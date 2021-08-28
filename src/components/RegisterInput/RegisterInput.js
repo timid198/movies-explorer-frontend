@@ -1,15 +1,14 @@
 import React from 'react';
 import './RegisterInput.css';
 
-function RegisterInput({label, type, name, placeholder, minLength, maxLength, values, handleChange, errors, message}) {
-
-    console.log(errors, message);
+function RegisterInput({label, type, name, placeholder, minLength, maxLength, values, handleChange, errors, message, ref}) {
     return(
         <div className="register-input">
             <label className="register-input__label">{label}</label>
             <input
              type={type}
              name={name}
+             ref={ref}
              className={`register-input__input ${errors ? 'register-input__error' : ''}`}
              minLength={minLength}
              maxLength={maxLength}

@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import '../App/App.css';
-import { Route, Switch } from 'react-router-dom';
+import { Route, Switch, Redirect, useHistory } from 'react-router-dom';
 import Header from '../Header/Header';
 import Main from '../Main/Main';
 import Movies from '../Movies/Movies';
@@ -12,7 +12,8 @@ import Footer from '../Footer/Footer';
 import Popup from '../Popup/Popup';
 import ErrorPopup from '../ErrorPopup/ErrorPopup';
 import useWindowDimensions from '../../utils/Resize';
-import * as moviesApi from '../../utils/MoviesApi';
+import * as beatfilmMoviesApi from '../../utils/MoviesApi';
+import * as clientApi from '../../utils/MainApi';
 
 import savedCards from '../../utils/saved-cards';
 import {headerColors} from '../../utils/constants';
@@ -31,12 +32,33 @@ function handleCloseClick() {
 }
 
 const [movies, setMovies] = useState([]);
+const [loggedIn, setLoggedIn] = useState(false);
 
-function getMovies() {
-  moviesApi.getContentFromBeatFilmMovies()
+const getMovies = () => {
+  beatfilmMoviesApi.getContentFromBeatFilmMovies()
   .then((res) => {
     setMovies(res)})
   .catch((err) => console.log(err))
+}
+
+const registerUser = ({name, email, password}) => {  
+  clientApi.register(name, email, password)
+  .then(res => console.log({'пришёл ответ регистрация:': res}))
+}
+
+const loginUser = ({email, password}) => {
+  clientApi.login(email, password)
+  .then(res => console.log({'пришёл ответ от входа:': res}))
+}
+
+const logoutUser = () => {
+  clientApi.logout()
+  .then(res => console.log({'пришёл ответ от логаута: ': res}))
+}
+
+const updateUser = ({ name, email }) => {
+  clientApi.editProfile(name,email)
+  .then(res => console.log({'пришёл ответ после обновления профиля :': res}))
 }
 
 useEffect(() => {
@@ -95,13 +117,13 @@ return (
           loginShow="none" 
           registerShow="none" 
           navShow="grid, [@media (max-width:1279px)]: display: none" />
-          <Profile />
+          <Profile onUpdate={updateUser} />
         </Route>
         <Route path="/signin">
-          <Login onUpdate={registerData} />
+          <Login onUpdate={loginUser} logout={logoutUser} />
         </Route>
         <Route path="/signup">
-          <Register onUpdate={registerData} />
+          <Register onUpdate={registerUser} />
         </Route>
       </Switch>
 
