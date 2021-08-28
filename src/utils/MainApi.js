@@ -23,16 +23,16 @@ export const createMovie = (data) => {
                 nameEN: `${data.nameEN}`,
                 
             })
-        })
-        .then(checkResponse);
+    })
+    .then(checkResponse);
 };
 
 export const deleteMovie = (_id) => {
     return fetch (`${API_URL}/movies/:movieId`, {
         method: 'DELETE',
             credentials: 'include',        
-        })
-        .then(checkResponse);
+    })
+    .then(checkResponse);
 };
 
 export const register = (name, email, password) => {
@@ -57,7 +57,7 @@ export const editProfile = (name, email) => {
         body: JSON.stringify({name, email})
     })
 
-        .then(checkResponse)
+    .then(checkResponse)
 }
 
 export const login = (email, password) => {
@@ -70,6 +70,13 @@ export const login = (email, password) => {
         body: JSON.stringify({email, password})
     })
     .then(checkResponse);
+}
+
+export const getProfileData = () => {
+    return fetch(`${API_URL}/users/me`, {
+        credentials: 'include',
+    })
+    .then(checkResponse)
 }
 
 export const getContent = () => {

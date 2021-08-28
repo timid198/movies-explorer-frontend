@@ -14,14 +14,18 @@ import ErrorPopup from '../ErrorPopup/ErrorPopup';
 import useWindowDimensions from '../../utils/Resize';
 import * as beatfilmMoviesApi from '../../utils/MoviesApi';
 import * as clientApi from '../../utils/MainApi';
+import {CurrentUserContext} from '../../contexts/CurrentUserContext';
 
-import savedCards from '../../utils/saved-cards';
 import {headerColors} from '../../utils/constants';
 
 function App() {
 
 const { width } = useWindowDimensions()
 const [isBurgerMenuOpen, setIsBurgerMenuOpen] = useState(false);
+const [movies, setMovies] = useState([]);
+const [loggedIn, setLoggedIn] = useState(false);
+const [currentUser, setCurrentUser] = useState({name: '', email: ''});
+const [savedMovies, setSavedMovies] = useState([]);
 
 function handleBurgerMenuClick() {
   setIsBurgerMenuOpen(true);
@@ -30,9 +34,6 @@ function handleBurgerMenuClick() {
 function handleCloseClick() {
   setIsBurgerMenuOpen(false);
 }
-
-const [movies, setMovies] = useState([]);
-const [loggedIn, setLoggedIn] = useState(false);
 
 const getMovies = () => {
   beatfilmMoviesApi.getContentFromBeatFilmMovies()
@@ -43,33 +44,42 @@ const getMovies = () => {
 
 const registerUser = ({name, email, password}) => {  
   clientApi.register(name, email, password)
-  .then(res => console.log({'пришёл ответ регистрация:': res}))
+  .then(res => console.log({'пришёл ответ регистрация': res}))
 }
 
 const loginUser = ({email, password}) => {
   clientApi.login(email, password)
-  .then(res => console.log({'пришёл ответ от входа:': res}))
+  .then(res => console.log({'пришёл ответ от входа': res}))
 }
 
 const logoutUser = () => {
   clientApi.logout()
-  .then(res => console.log({'пришёл ответ от логаута: ': res}))
+  .then(res => {setLoggedIn(true);
+    console.log({'пришёл ответ от логаута': res})})
 }
 
 const updateUser = ({ name, email }) => {
   clientApi.editProfile(name,email)
-  .then(res => console.log({'пришёл ответ после обновления профиля :': res}))
+  .then(res => console.log({'пришёл ответ после обновления профиля': res}))
 }
 
 useEffect(() => {
   getMovies();
 }, [])
 
-const registerData = (props) => {
-  console.log(props);
-}
+useEffect(() => {
+  Promise.all([clientApi.getProfileData(), clientApi.getContent()])
+    .then(res => {
+      const [profileData, moviesData] = res;
+      setLoggedIn(true);
+      setCurrentUser(profileData);
+      setSavedMovies(moviesData);}) 
+    .catch((err) => {setLoggedIn(true);
+    console.log(err)})
+}, [loggedIn])
 
 return (
+  <CurrentUserContext.Provider value={currentUser}>
     <div className="App"> 
       <Switch>
         <Route exact path="/">
@@ -106,7 +116,7 @@ return (
           loginShow="none" 
           registerShow="none" 
           navShow="grid, [@media (max-width:1279px)]: display: none" />
-          <SavedMovies cards={savedCards} />
+          <SavedMovies cards={savedMovies} />
           <Footer />
         </Route>
         <Route path="/profile">
@@ -130,7 +140,8 @@ return (
       <Popup handleButtonCloseClick={handleCloseClick} open={isBurgerMenuOpen} />
       <ErrorPopup open="" statusCode="404" text="Страница не найдена" />
     </div>
+  </CurrentUserContext.Provider>
   );
-}
+};
 
 export default App;
