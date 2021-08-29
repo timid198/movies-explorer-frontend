@@ -1,4 +1,37 @@
 .profile {
+    position: relative;
+      min-width: 320px;
+      display: grid;
+      align-items: center;
+      justify-content: center;
+      align-content: start;
+      grid-template-columns: repeat(1, 1fr);
+      grid-template-rows: repeat(3, max-content);
+      grid-template-areas:
+      "header"
+      "main"
+      "footer";
+      font-family: 'Inter', 'Arial', 'Helvetica', sans-serif;
+      -moz-osx-font-smoothing: grayscale;
+      -webkit-font-smoothing: antialiased;
+      -webkit-text-size-adjust: 100%;
+      -ms-text-size-adjust: 100%;
+      -moz-text-size-adjust: 100%;
+      text-rendering: optimizeLegibility;
+  }
+  
+  @media screen and (min-width: 1281px) {
+    .profile {
+        grid-template-columns: 1fr 1280px 1fr;
+        grid-template-rows: repeat(3, max-content);
+        grid-template-areas:
+        ". header ."
+        ". main ."
+        ". footer .";
+    }
+  }
+
+.profile-content {
     grid-area: main;
     max-width: 1280px;
     padding: 74px 0 70px;
@@ -9,14 +42,14 @@
 }
 
 @media screen and (min-width: 321px) and (max-width: 768px) {
-    .profile {
+    .profile-content {
         max-width: 768px;
         padding: 236px 0 269px;
     }
 }
 
 @media screen and (max-width: 320px) {
-    .profile {
+    .profile-content {
         max-width: 320px;
         padding: 70px 0 40px;
     }
@@ -177,7 +210,7 @@
 }
 
 .register-input__input {
-    width: 90%;
+    width: 91%;
     text-align: right;
     margin: 0;
     padding: 0;
@@ -200,8 +233,7 @@
     position: absolute;
     visibility: hidden;
     opacity: 0;
-    padding: 12px 0 0;
-    width: 100%;
+    padding: 16px 0 0;
     font-family: 'Inter', 'Arial', 'Helvetica', sans-serif;
     font-style: normal;
     font-weight: normal;

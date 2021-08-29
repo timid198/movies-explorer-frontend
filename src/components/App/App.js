@@ -11,6 +11,7 @@ import Register from '../Register/Register';
 import Footer from '../Footer/Footer';
 import Popup from '../Popup/Popup';
 import ErrorPopup from '../ErrorPopup/ErrorPopup';
+import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
 import useWindowDimensions from '../../utils/Resize';
 import * as beatfilmMoviesApi from '../../utils/MoviesApi';
 import * as clientApi from '../../utils/MainApi';
@@ -24,8 +25,9 @@ const { width } = useWindowDimensions()
 const [isBurgerMenuOpen, setIsBurgerMenuOpen] = useState(false);
 const [movies, setMovies] = useState([]);
 const [loggedIn, setLoggedIn] = useState(false);
-const [currentUser, setCurrentUser] = useState({name: '', email: ''});
+const [currentUser, setCurrentUser] = useState({name: CurrentUserContext.name, email: CurrentUserContext.email});
 const [savedMovies, setSavedMovies] = useState([]);
+const history = useHistory();
 
 function handleBurgerMenuClick() {
   setIsBurgerMenuOpen(true);
@@ -38,6 +40,7 @@ function handleCloseClick() {
 const getMovies = () => {
   beatfilmMoviesApi.getContentFromBeatFilmMovies()
   .then((res) => {
+    console.log(res);
     setMovies(res)})
   .catch((err) => console.log(err))
 }
@@ -49,7 +52,7 @@ const registerUser = ({name, email, password}) => {
 
 const loginUser = ({email, password}) => {
   clientApi.login(email, password)
-  .then(res => console.log({'пришёл ответ от входа': res}))
+  .then(res => {console.log({'пришёл ответ от входа': res});})
 }
 
 const logoutUser = () => {
@@ -59,8 +62,10 @@ const logoutUser = () => {
 }
 
 const updateUser = ({ name, email }) => {
+  console.log({ name, email });
   clientApi.editProfile(name,email)
-  .then(res => console.log({'пришёл ответ после обновления профиля': res}))
+  .then(res => {console.log({'пришёл ответ после обновления профиля': res});
+  setCurrentUser({name: res.name, email: res.email});})
 }
 
 useEffect(() => {
@@ -72,69 +77,33 @@ useEffect(() => {
     .then(res => {
       const [profileData, moviesData] = res;
       setLoggedIn(true);
-      setCurrentUser(profileData);
-      setSavedMovies(moviesData);}) 
-    .catch((err) => {setLoggedIn(true);
-    console.log(err)})
+      setCurrentUser({name: profileData.name, email: profileData.email});
+      setSavedMovies(moviesData);
+      console.log(res)}) 
+    .catch((err) => console.log(err))
 }, [loggedIn])
+
+console.log(currentUser.name)
 
 return (
   <CurrentUserContext.Provider value={currentUser}>
     <div className="App"> 
       <Switch>
-        <Route exact path="/">
-          <Header 
-          handleButtonOpenClick={handleBurgerMenuClick}
-          headerBackgrounColor={headerColors.main} 
-          profileShow="none" 
-          loginShow="block" 
-          registerShow="block" 
-          navShow="none" 
-          burgerMenuShow="none" />
-          <Main />
-          <Footer />
-        </Route>        
-        <Route path="/movies">
-          <Header 
-          handleButtonOpenClick={handleBurgerMenuClick}
-          headerBackgrounColor={headerColors.default} 
-          profileShow="block, [@media (max-width:1279px)]: display: none" 
-          loginShow="none" 
-          registerShow="none" 
-          navShow="grid, [@media (max-width:1279px)]: display: none" />
-          <Movies
-           cards={movies}
-           width={width}
-           />
-          <Footer />
-        </Route>
-        <Route path="/saved-movies">
-          <Header 
-          handleButtonOpenClick={handleBurgerMenuClick}
-          headerBackgrounColor={headerColors.default} 
-          profileShow="block, [@media (max-width:1279px)]: display: none" 
-          loginShow="none" 
-          registerShow="none" 
-          navShow="grid, [@media (max-width:1279px)]: display: none" />
-          <SavedMovies cards={savedMovies} />
-          <Footer />
-        </Route>
-        <Route path="/profile">
-          <Header 
-          handleButtonOpenClick={handleBurgerMenuClick}
-          headerBackgrounColor={headerColors.profile} 
-          profileShow="block, [@media (max-width:1279px)]: display: none" 
-          loginShow="none" 
-          registerShow="none" 
-          navShow="grid, [@media (max-width:1279px)]: display: none" />
-          <Profile onUpdate={updateUser} />
-        </Route>
-        <Route path="/signin">
-          <Login onUpdate={loginUser} logout={logoutUser} />
-        </Route>
-        <Route path="/signup">
-          <Register onUpdate={registerUser} />
-        </Route>
+            <Route exact path="/">
+              <Main />
+            </Route>
+            <ProtectedRoute path="/movies" component={Movies} cards={movies} width={width} handleButtonOpenClick={handleBurgerMenuClick} loggedIn={loggedIn} / >
+            <ProtectedRoute path="/saved-movies" component={SavedMovies} cards={savedMovies} handleButtonOpenClick={handleBurgerMenuClick} loggedIn={loggedIn} / >
+            <ProtectedRoute path="/profile" component={Profile} onUpdate={updateUser}  logout={logoutUser} title={currentUser.name} loggedIn={loggedIn} / >
+            <Route>
+                  {loggedIn ? <Redirect to="/movies" /> : <Redirect exact to="/" />}
+              </Route>
+            <Route path="/signin">
+              <Login onUpdate={loginUser} />
+            </Route>
+            <Route path="/signup">
+              <Register onUpdate={registerUser} />
+            </Route>
       </Switch>
 
       <Popup handleButtonCloseClick={handleCloseClick} open={isBurgerMenuOpen} />

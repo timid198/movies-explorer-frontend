@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import './Movies.css';
+import Header from '../Header/Header';
 import SearchForm from '../SearchForm/SearchForm';
 import MoviesCardList from '../MoviesCardList/MoviesCardList';
 import Preloader from '../Preloader/Preloader';
+import Footer from '../Footer/Footer';
 
-function Movies({cards, width}) {
+function Movies({handleButtonOpenClick, headerBackgrounColor, profileShow, loginShow, registerShow, navShow, burgerMenuShow, cards, width}) {
     const [isSearchRequest, setIsSearchRequest] = useState({movies: ''});
     const [isActive, setIsActive] = useState(true);
     const [movieCount, setMovieCount] = useState(5);
@@ -70,20 +72,25 @@ function Movies({cards, width}) {
         setTimeout(() => appWidth(), 1000);
     });
 
-    return(
-        <div className="Movies">
-            <SearchForm onChange={handleSearchRequest} onSubmit={handleSubmit} />
-            {  (!isMovieSearched) ? (
-                <div className="Movies__before-search">
-                    {loading ? (<Preloader />) : ''}
+    return(        
+        <div>
+            <Header handleButtonOpenClick headerBackgrounColor profileShow loginShow registerShow navShow burgerMenuShow />
+                <div className="Movies">
+                    <SearchForm onChange={handleSearchRequest} onSubmit={handleSubmit} />
+                    {  (!isMovieSearched) ? (
+                        <div className="Movies__before-search">
+                            {loading ? (<Preloader />) : ''}
+                        </div>
+                    ) : ( (filteredMovies.length !== 0) ? (
+                    <div className="Movies__add">
+                        <MoviesCardList cards={toAddingMovies} /> 
+                        <button type="button" className={`Movies__more ${!isActive ? 'Movies__more_none' : ''}`} onClick={() => {setMovieCount(prevCount => prevCount + moviesAdd)}}>Ещё</button>
+                    </div>) : 
+                    ((!errorMessage) ? (<h2 className="Movies__nothing-yet">Ничего не найдено</h2>) : (<h2 className="Movies__error">Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз</h2>)))}         
                 </div>
-            ) : ( (filteredMovies.length !== 0) ? (
-            <div className="Movies__add">
-                <MoviesCardList cards={toAddingMovies} /> 
-                <button type="button" className={`Movies__more ${!isActive ? 'Movies__more_none' : ''}`} onClick={() => {setMovieCount(prevCount => prevCount + moviesAdd)}}>Ещё</button>
-            </div>) : 
-            ((!errorMessage) ? (<h2 className="Movies__nothing-yet">Ничего не найдено</h2>) : (<h2 className="Movies__error">Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз</h2>)))}         
+            <Footer />            
         </div>
+        
     )
 }
 

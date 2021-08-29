@@ -30,7 +30,7 @@ export const createMovie = (data) => {
 export const deleteMovie = (_id) => {
     return fetch (`${API_URL}/movies/:movieId`, {
         method: 'DELETE',
-            credentials: 'include',        
+        credentials: 'include',        
     })
     .then(checkResponse);
 };
@@ -40,7 +40,6 @@ export const register = (name, email, password) => {
     return fetch (`${API_URL}/signup`, {
         method: 'POST',        
         headers: {
-            'Accept': 'application/json',
             'Content-Type': 'application/json'},
         body: JSON.stringify({name, email, password})
     })
@@ -61,11 +60,11 @@ export const editProfile = (name, email) => {
 }
 
 export const login = (email, password) => {
+    console.log(email, password);
     return fetch (`${API_URL}/signin`, {
         method: 'POST',
         credentials: 'include',
         headers: {
-            'Accept': 'application/json',
             'Content-Type': 'application/json'},
         body: JSON.stringify({email, password})
     })
@@ -92,7 +91,6 @@ export const logout = () => {
         method: 'POST',
         credentials: 'include',
         headers: {
-            'Accept': 'application/json',
             'Content-Type': 'application/json'},
     })
     .then(checkResponse);
