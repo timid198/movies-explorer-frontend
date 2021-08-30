@@ -53,7 +53,7 @@ function Login({ onUpdate }) {
              ref={emailRef}
              value={values.email || ''}
              onChange={handleChange}
-             autoFocus
+             autoFocus={true}
               />
             <span className={`form__input-message ${!isValid ? 'form__input-message_active' : ''}`}>{errors.email}</span>
         </div>
@@ -71,7 +71,7 @@ function Login({ onUpdate }) {
              ref={passwordRef}
              value={values.password || ''}
              onChange={handleChange}
-             autoFocus
+             autoFocus={true}
               />
             <span className={`form__input-message ${!isValid ? 'form__input-message_active' : ''}`}>{errors.password}</span>
         </div>

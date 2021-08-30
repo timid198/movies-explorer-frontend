@@ -69,7 +69,10 @@ function Profile({handleButtonOpenClick, headerBackgrounColor, profileShow, logi
                         value={name}
                         onChange={(e) => {handleChange(e);
                                           handleChangeName(e)}}
-                        required />
+                        required
+                        autoFocus={true}
+                        formNoValidate
+                        />
                         <span className={`register-input_error-hidden ${errors.name ? 'register-input_error-active' : ''}`}>{errors.name}</span>                    
                     </fieldset>
                     <fieldset className="profile__email">
@@ -84,7 +87,10 @@ function Profile({handleButtonOpenClick, headerBackgrounColor, profileShow, logi
                         value={email}
                         onChange={(e) => {handleChange(e);
                                           handleChangeEmail(e)}}
-                        required />
+                        required
+                        autoFocus={true}
+                        formNoValidate
+                        />
                         <span className={`register-input_error-hidden ${errors.email ? 'register-input_error-active' : ''}`}>{errors.email}</span>
                     </fieldset>
                     <fieldset className="profile__edit">

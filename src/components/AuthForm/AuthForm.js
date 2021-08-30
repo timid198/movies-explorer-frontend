@@ -7,7 +7,7 @@ function AuthForm({formTitle, formButtonText, formContentText, formRedirectText,
 const submitStyle = `auth-form__submit ${formPadding ? formPadding : ''}`
 
     return (
-        <form id="form" className="auth-form" onSubmit={handleSubmit}>
+        <form id="form" className="auth-form" onSubmit={handleSubmit} noValidate>
             <Link to="/" className="auth-form__logo" />
             <h2 className="auth-form__title">{ formTitle }</h2>
             <fieldset className="auth-form__fieldset">

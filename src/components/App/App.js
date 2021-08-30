@@ -90,14 +90,14 @@ return (
     <div className="App"> 
       <Switch>
             <Route exact path="/">
-              <Main />
+              <Main handleButtonOpenClick={handleBurgerMenuClick} />
             </Route>
             <ProtectedRoute path="/movies" component={Movies} cards={movies} width={width} handleButtonOpenClick={handleBurgerMenuClick} loggedIn={loggedIn} / >
             <ProtectedRoute path="/saved-movies" component={SavedMovies} cards={savedMovies} handleButtonOpenClick={handleBurgerMenuClick} loggedIn={loggedIn} / >
             <ProtectedRoute path="/profile" component={Profile} onUpdate={updateUser}  logout={logoutUser} title={currentUser.name} loggedIn={loggedIn} / >
-            <Route>
-                  {loggedIn ? <Redirect to="/movies" /> : <Redirect exact to="/" />}
-              </Route>
+            {/* <Route>
+                  {loggedIn ? <Redirect to="/movies" /> : <Redirect to="/" />}
+            </Route> */}
             <Route path="/signin">
               <Login onUpdate={loginUser} />
             </Route>
