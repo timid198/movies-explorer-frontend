@@ -60,7 +60,6 @@ export const editProfile = (name, email) => {
 }
 
 export const login = (email, password) => {
-    console.log(email, password);
     return fetch (`${API_URL}/signin`, {
         method: 'POST',
         credentials: 'include',
