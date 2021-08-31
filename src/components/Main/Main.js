@@ -10,10 +10,11 @@ import Portfolio from '../Portfolio/Portfolio';
 import Footer from '../Footer/Footer';
 
 
-function Main({handleButtonOpenClick, headerBackgrounColor, profileShow, loginShow, registerShow, navShow, burgerMenuShow}) {
+function Main({handleButtonOpenClick, headerBackgrounColor, loggedIn}) {
+    console.log(loggedIn);
     return(
         <div className="Main">
-            <Header handleButtonOpenClick headerBackgrounColor profileShow loginShow registerShow navShow burgerMenuShow />
+            <Header handleButtonOpenClick={handleButtonOpenClick} headerBackgrounColor={headerBackgrounColor} loggedIn={loggedIn} />
             <div className="Main-content">
                 <Promo />
                 <NavTab />

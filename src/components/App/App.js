@@ -1,14 +1,12 @@
 import React, {useEffect, useState} from 'react';
 import '../App/App.css';
 import { Route, Switch, Redirect, useHistory } from 'react-router-dom';
-import Header from '../Header/Header';
 import Main from '../Main/Main';
 import Movies from '../Movies/Movies';
 import SavedMovies from '../SavedMovies/SavedMovies';
 import Profile from '../Profile/Profile';
 import Login from '../Login/Login';
 import Register from '../Register/Register';
-import Footer from '../Footer/Footer';
 import Popup from '../Popup/Popup';
 import ErrorPopup from '../ErrorPopup/ErrorPopup';
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
@@ -52,12 +50,14 @@ const registerUser = ({name, email, password}) => {
 
 const loginUser = ({email, password}) => {
   clientApi.login(email, password)
-  .then(res => {console.log({'пришёл ответ от входа': res});})
+  .then(res => {console.log({'пришёл ответ от входа': res});
+                setLoggedIn(true);})
 }
 
 const logoutUser = () => {
   clientApi.logout()
-  .then(res => {setLoggedIn(true);
+  .then(res => {setLoggedIn(false);
+                history.push('/');
     console.log({'пришёл ответ от логаута': res})})
 }
 
@@ -83,26 +83,26 @@ useEffect(() => {
     .catch((err) => console.log(err))
 }, [loggedIn])
 
-console.log(currentUser.name)
+console.log(loggedIn)
 
 return (
   <CurrentUserContext.Provider value={currentUser}>
     <div className="App"> 
       <Switch>
             <Route exact path="/">
-              <Main handleButtonOpenClick={handleBurgerMenuClick} />
+              <Main handleButtonOpenClick={handleBurgerMenuClick} headerBackgrounColor={headerColors.main} loggedIn={loggedIn} />
             </Route>
-            <ProtectedRoute path="/movies" component={Movies} cards={movies} width={width} handleButtonOpenClick={handleBurgerMenuClick} loggedIn={loggedIn} / >
-            <ProtectedRoute path="/saved-movies" component={SavedMovies} cards={savedMovies} handleButtonOpenClick={handleBurgerMenuClick} loggedIn={loggedIn} / >
-            <ProtectedRoute path="/profile" component={Profile} onUpdate={updateUser}  logout={logoutUser} title={currentUser.name} loggedIn={loggedIn} / >
-            {/* <Route>
-                  {loggedIn ? <Redirect to="/movies" /> : <Redirect to="/" />}
-            </Route> */}
+            <ProtectedRoute path="/movies" component={Movies} cards={movies} width={width} handleButtonOpenClick={handleBurgerMenuClick} headerBackgrounColor={headerColors.default} loggedIn={loggedIn} / >
+            <ProtectedRoute path="/saved-movies" component={SavedMovies} cards={savedMovies} handleButtonOpenClick={handleBurgerMenuClick} headerBackgrounColor={headerColors.default} loggedIn={loggedIn} / >
+            <ProtectedRoute path="/profile" component={Profile} onUpdate={updateUser}  logout={logoutUser} title={currentUser.name} handleButtonOpenClick={handleBurgerMenuClick} headerBackgrounColor={headerColors.profile} loggedIn={loggedIn} / >
             <Route path="/signin">
               <Login onUpdate={loginUser} />
             </Route>
             <Route path="/signup">
               <Register onUpdate={registerUser} />
+            </Route>
+            <Route>
+              {loggedIn ? <Redirect to="/movies" /> : <Redirect to="/" />}
             </Route>
       </Switch>
 

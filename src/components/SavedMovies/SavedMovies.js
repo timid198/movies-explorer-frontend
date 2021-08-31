@@ -5,10 +5,11 @@ import SearchForm from '../SearchForm/SearchForm';
 import MoviesCardList from '../MoviesCardList/MoviesCardList';
 import Footer from '../Footer/Footer';
 
-function SavedMovies({handleButtonOpenClick, headerBackgrounColor, profileShow, loginShow, registerShow, navShow, burgerMenuShow, cards}) {
+function SavedMovies({handleButtonOpenClick, headerBackgrounColor, cards, loggedIn}) {
+    console.log(loggedIn);
     return (
         <div>
-            <Header handleButtonOpenClick headerBackgrounColor profileShow loginShow registerShow navShow burgerMenuShow />
+            <Header handleButtonOpenClick={handleButtonOpenClick} headerBackgrounColor={headerBackgrounColor} loggedIn={loggedIn} />
                 <div className="Saved-movies">
                     <SearchForm />
                     <MoviesCardList cards={cards} />

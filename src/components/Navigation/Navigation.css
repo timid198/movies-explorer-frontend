@@ -1,4 +1,5 @@
 .navigation {
+    display: block;
     position: absolute;
     top: 28px;
     left: 152px;

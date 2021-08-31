@@ -4,7 +4,7 @@ import Header from '../Header/Header';
 import { CurrentUserContext } from '../../contexts/CurrentUserContext';
 import { useFormAndValidate } from '../../utils/FormWithValidation';
 
-function Profile({handleButtonOpenClick, headerBackgrounColor, profileShow, loginShow, registerShow, navShow, burgerMenuShow, onUpdate, logout, title}) {
+function Profile({handleButtonOpenClick, headerBackgrounColor, onUpdate, logout, title, loggedIn}) {
     
     const currentUser = useContext(CurrentUserContext);
     const {values, handleChange, errors, isValid} = useFormAndValidate();
@@ -47,11 +47,11 @@ function Profile({handleButtonOpenClick, headerBackgrounColor, profileShow, logi
         logout();
     }
     
-    console.log(title);
+    console.log(loggedIn);
 
     return (
         <div className="profile">
-            <Header handleButtonOpenClick headerBackgrounColor profileShow loginShow registerShow navShow burgerMenuShow />
+            <Header handleButtonOpenClick={handleButtonOpenClick} headerBackgrounColor={headerBackgrounColor} loggedIn={loggedIn} />
             <div className="profile-content">
                 <h2 className="profile-title">Привет, {formTitle}!</h2>
                 <form className="profile__form" onSubmit={handleSubmit}>
@@ -61,11 +61,10 @@ function Profile({handleButtonOpenClick, headerBackgrounColor, profileShow, logi
                         id="name"
                         type="text"
                         name="name"
-                        // ref={nameRef}
                         className={`register-input__input ${errors.name ? 'register-input__error' : ''}`}
                         minLength="2"
                         maxLength="30"
-                        placeholder
+                        placeholder="Имя"
                         value={name}
                         onChange={(e) => {handleChange(e);
                                           handleChangeName(e)}}
@@ -81,9 +80,8 @@ function Profile({handleButtonOpenClick, headerBackgrounColor, profileShow, logi
                         id="email"
                         type="email"
                         name="email"
-                        // ref={emailRef}
                         className={`register-input__input ${errors.email ? 'register-input__error' : ''}`}                    
-                        placeholder
+                        placeholder="Электронная почта"
                         value={email}
                         onChange={(e) => {handleChange(e);
                                           handleChangeEmail(e)}}
