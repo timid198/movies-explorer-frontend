@@ -93,5 +93,5 @@ export const logout = () => {
         headers: {
             'Content-Type': 'application/json'},
     })
-    .then(res => res.ok ? Promise.reject() : res.json());
+    .then(res => res.send({ message: 'Вы произвели выход из аккаунта.' }));
 }

@@ -8,10 +8,10 @@ function MoviesCardList({likeFunc, userId, page, cards, saved}) {
         if ( link === "movies" ) {
             return sorted.map((item) => {
                 console.log(item);
-                if (choosen.find((el) => el.id === item.movieId)) {
+                if (choosen.find((el) => el.movieId === item.id)) {
                     return (<MoviesCard key={item._id} card={item} userId={userId} likeFunc={likeFunc} added={true} page={page} />)
                 }else{
-                    return (<MoviesCard key={item._id} card={item} userId={userId} likeFunc={likeFunc} page={page} />)  
+                    return (<MoviesCard key={item._id} card={item} userId={userId} likeFunc={likeFunc} page={page} added={false} />)  
                 }
             })
         } else if ( link === "saved-movies" ) {

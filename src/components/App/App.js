@@ -56,6 +56,7 @@ const loginUser = ({email, password}) => {
 }
 
 const logoutUser = () => {
+  console.log('Click');
   clientApi.logout()
   .then(res => {setLoggedIn(false);
                 history.push('/');
@@ -76,6 +77,7 @@ const movieLike = (props) => {
   .then(res => console.log('Фильм добавлен в сохранённые', res))
   .catch(err => console.log(err))
 }else{
+  props.added=true;
   clientApi.deleteMovie(props._id)
   .then(res => console.log('Фильм удалён из сохранённых', res))
   .catch(err => console.log(err))
