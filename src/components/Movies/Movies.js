@@ -6,7 +6,7 @@ import MoviesCardList from '../MoviesCardList/MoviesCardList';
 import Preloader from '../Preloader/Preloader';
 import Footer from '../Footer/Footer';
 
-function Movies({handleButtonOpenClick, headerBackgrounColor, cards, width, loggedIn}) {
+function Movies({handleButtonOpenClick, headerBackgrounColor, page, likeFunc, userId, cards, saved, width, loggedIn}) {
     const [isSearchRequest, setIsSearchRequest] = useState({movies: ''});
     const [isActive, setIsActive] = useState(true);
     const [movieCount, setMovieCount] = useState(5);
@@ -85,7 +85,7 @@ function Movies({handleButtonOpenClick, headerBackgrounColor, cards, width, logg
                         </div>
                     ) : ( (filteredMovies.length !== 0) ? (
                     <div className="Movies__add">
-                        <MoviesCardList cards={toAddingMovies} /> 
+                        <MoviesCardList page={page} likeFunc={likeFunc} userId={userId} cards={toAddingMovies} saved={saved} /> 
                         <button type="button" className={`Movies__more ${!isActive ? 'Movies__more_none' : ''}`} onClick={() => {setMovieCount(prevCount => prevCount + moviesAdd)}}>Ещё</button>
                     </div>) : 
                     ((!errorMessage) ? (<h2 className="Movies__nothing-yet">Ничего не найдено</h2>) : (<h2 className="Movies__error">Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз</h2>)))}         

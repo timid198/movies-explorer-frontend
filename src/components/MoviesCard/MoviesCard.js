@@ -1,8 +1,8 @@
 import React from 'react';
 import './MoviesCard.css';
 
-function MoviesCard({card}) {
-    console.log(card);
+function MoviesCard({likeFunc, card, userId, added, page}) {
+    console.log();
 
     const bringingTheTime = () => {
         let hours = Math.floor(card.duration/60);
@@ -13,7 +13,13 @@ function MoviesCard({card}) {
         return `${minutes}м`;
     }
 
-    const like = `movies-card__like-place ${card.like && card.save ? 'movies-card__remove' : card.like ? 'movies-card__like' : 'movies-card__unlike'}`;
+    const handleMovieLike = (e) => {
+        console.log(card);
+        e.preventDefault();
+        likeFunc(card);
+    }
+
+    const like = `movies-card__like-place ${page === "movies" && added === true ? 'movies-card__like' : page === "saved-movies" && added === true ? 'movies-card__remove' : 'movies-card__unlike'}`;
 
     return (
         <div className="movies-card">
@@ -22,7 +28,7 @@ function MoviesCard({card}) {
                     <h5 className="movies-card__title">{card.nameRU}</h5>
                     <p className="movies-card__duration">{bringingTheTime()}</p>
                 </div>
-                <button type="button" className={like} />
+                <button type="button" className={like} onClick={handleMovieLike} />
             </div>
             <a href={card.trailerLink} className="movies-card__link">
                 <img src={`https://api.nomoreparties.co${card.image.url}`} alt={card.nameRU} className="movies-card__image" />

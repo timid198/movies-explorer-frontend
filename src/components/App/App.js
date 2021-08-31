@@ -23,7 +23,7 @@ const { width } = useWindowDimensions()
 const [isBurgerMenuOpen, setIsBurgerMenuOpen] = useState(false);
 const [movies, setMovies] = useState([]);
 const [loggedIn, setLoggedIn] = useState(false);
-const [currentUser, setCurrentUser] = useState({name: CurrentUserContext.name, email: CurrentUserContext.email});
+const [currentUser, setCurrentUser] = useState({name: CurrentUserContext.name, email: CurrentUserContext.email, _id: CurrentUserContext._id});
 const [savedMovies, setSavedMovies] = useState([]);
 const history = useHistory();
 
@@ -51,6 +51,7 @@ const registerUser = ({name, email, password}) => {
 const loginUser = ({email, password}) => {
   clientApi.login(email, password)
   .then(res => {console.log({'пришёл ответ от входа': res});
+                history.push('/movies');
                 setLoggedIn(true);})
 }
 
@@ -68,6 +69,19 @@ const updateUser = ({ name, email }) => {
   setCurrentUser({name: res.name, email: res.email});})
 }
 
+const movieLike = (props) => {
+  console.log(props)
+  if (props.owner !== currentUser._id){  
+  clientApi.createMovie(props)
+  .then(res => console.log('Фильм добавлен в сохранённые', res))
+  .catch(err => console.log(err))
+}else{
+  clientApi.deleteMovie(props._id)
+  .then(res => console.log('Фильм удалён из сохранённых', res))
+  .catch(err => console.log(err))
+}
+}
+
 useEffect(() => {
   getMovies();
 }, [])
@@ -77,13 +91,13 @@ useEffect(() => {
     .then(res => {
       const [profileData, moviesData] = res;
       setLoggedIn(true);
-      setCurrentUser({name: profileData.name, email: profileData.email});
+      setCurrentUser({name: profileData.name, email: profileData.email, _id: profileData._id});
       setSavedMovies(moviesData);
       console.log(res)}) 
     .catch((err) => console.log(err))
 }, [loggedIn])
 
-console.log(loggedIn)
+// console.log(currentUser._id)
 
 return (
   <CurrentUserContext.Provider value={currentUser}>
@@ -92,8 +106,8 @@ return (
             <Route exact path="/">
               <Main handleButtonOpenClick={handleBurgerMenuClick} headerBackgrounColor={headerColors.main} loggedIn={loggedIn} />
             </Route>
-            <ProtectedRoute path="/movies" component={Movies} cards={movies} width={width} handleButtonOpenClick={handleBurgerMenuClick} headerBackgrounColor={headerColors.default} loggedIn={loggedIn} / >
-            <ProtectedRoute path="/saved-movies" component={SavedMovies} cards={savedMovies} handleButtonOpenClick={handleBurgerMenuClick} headerBackgrounColor={headerColors.default} loggedIn={loggedIn} / >
+            <ProtectedRoute path="/movies" component={Movies} page={"movies"} likeFunc={movieLike} userId={currentUser._id} cards={movies} saved={savedMovies} width={width} handleButtonOpenClick={handleBurgerMenuClick} headerBackgrounColor={headerColors.default} loggedIn={loggedIn} / >
+            <ProtectedRoute path="/saved-movies" component={SavedMovies} page={"saved-movies"} cards={[]} saved={savedMovies} handleButtonOpenClick={handleBurgerMenuClick} headerBackgrounColor={headerColors.default} loggedIn={loggedIn} / >
             <ProtectedRoute path="/profile" component={Profile} onUpdate={updateUser}  logout={logoutUser} title={currentUser.name} handleButtonOpenClick={handleBurgerMenuClick} headerBackgrounColor={headerColors.profile} loggedIn={loggedIn} / >
             <Route path="/signin">
               <Login onUpdate={loginUser} />
