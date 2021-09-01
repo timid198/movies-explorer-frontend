@@ -2,7 +2,7 @@ import React from 'react';
 import './MoviesCard.css';
 
 function MoviesCard({likeFunc, card, userId, added, page}) {
-    console.log();
+    console.log(card);
 
     const bringingTheTime = () => {
         let hours = Math.floor(card.duration/60);
@@ -14,12 +14,13 @@ function MoviesCard({likeFunc, card, userId, added, page}) {
     }
 
     const handleMovieLike = (e) => {
-        console.log(card);
+        console.log(card.movieId, page);
         e.preventDefault();
-        likeFunc(card);
+        likeFunc(card, page);
     }
 
     const like = `movies-card__like-place ${page === "movies" && added === true ? 'movies-card__like' : page === "saved-movies" && added === true ? 'movies-card__remove' : 'movies-card__unlike'}`;
+    const imageSource = page === "movies" ? `https://api.nomoreparties.co${card.image.url}` : page === "saved-movies" ? `${card.image}` : ''
 
     return (
         <div className="movies-card">
@@ -31,7 +32,7 @@ function MoviesCard({likeFunc, card, userId, added, page}) {
                 <button type="button" className={like} onClick={handleMovieLike} />
             </div>
             <a href={card.trailerLink} className="movies-card__link">
-                <img src={`https://api.nomoreparties.co${card.image.url}`} alt={card.nameRU} className="movies-card__image" />
+                <img src={imageSource} alt={card.nameRU} className="movies-card__image" />
             </a>
         </div>
     )

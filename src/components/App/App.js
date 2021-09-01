@@ -69,16 +69,17 @@ const updateUser = ({ name, email }) => {
   setCurrentUser({name: res.name, email: res.email});})
 }
 
-const movieLike = (props) => {
-  console.log(props)
+const movieLike = (props, link) => {
+  console.log(props, link)
+  if (link === 'movies') {
   if (!savedMovies.find((el) => el.movieId === props.id)){     
   clientApi.createMovie(props)
   .then(res => {setSavedMovies([...savedMovies, res]);
     console.log('Фильм добавлен в сохранённые', savedMovies)})
   .catch(err => console.log(err))
-}else{
+}else{  
+  console.log(link === 'movies', props, link);
   let deletedMovie = savedMovies.find((movie) => movie.movieId === props.id);
-  console.log(deletedMovie._id);
    if (deletedMovie) {
     console.log(deletedMovie._id);
   clientApi.deleteMovie(deletedMovie._id)
@@ -86,8 +87,15 @@ const movieLike = (props) => {
     setSavedMovies(res);
     console.log(res)})
   .catch(err => console.log(err))
+}}} if (link === 'saved-movies') {
+  console.log(link === 'saved-movies', props, link);
+  savedMovies.splice(savedMovies.indexOf(props, 0), 1);
+  clientApi.deleteMovie(props._id)
+  .then(res => {
+    setSavedMovies(res);
+    console.log(res)})
+  .catch(err => console.log(err))
 }}
-}
 
 useEffect(() => {
   getMovies();
@@ -114,7 +122,7 @@ return (
               <Main handleButtonOpenClick={handleBurgerMenuClick} headerBackgrounColor={headerColors.main} loggedIn={loggedIn} />
             </Route>
             <ProtectedRoute path="/movies" component={Movies} page={"movies"} likeFunc={movieLike} userId={currentUser._id} cards={movies} saved={savedMovies} width={width} handleButtonOpenClick={handleBurgerMenuClick} headerBackgrounColor={headerColors.default} loggedIn={loggedIn} / >
-            <ProtectedRoute path="/saved-movies" component={SavedMovies} page={"saved-movies"} cards={[]} saved={savedMovies} handleButtonOpenClick={handleBurgerMenuClick} headerBackgrounColor={headerColors.default} loggedIn={loggedIn} / >
+            <ProtectedRoute path="/saved-movies" component={SavedMovies} page={"saved-movies"} likeFunc={movieLike} userId={currentUser._id} cards={[]} saved={savedMovies} handleButtonOpenClick={handleBurgerMenuClick} headerBackgrounColor={headerColors.default} loggedIn={loggedIn} / >
             <ProtectedRoute path="/profile" component={Profile} onUpdate={updateUser}  logout={logoutUser} title={currentUser.name} handleButtonOpenClick={handleBurgerMenuClick} headerBackgrounColor={headerColors.profile} loggedIn={loggedIn} / >
             <Route path="/signin">
               <Login onUpdate={loginUser} />

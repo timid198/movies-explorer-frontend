@@ -21,7 +21,6 @@ function MoviesCardList({likeFunc, userId, page, cards, saved}) {
 
     return (
         <section className="movies-card-list">
-            {/* {cards.map((item) => (<MoviesCard key={item._id} card={item} userId={userId} likeFunc={likeFunc} />))} */}
             {renderCardList(page, cards, saved)}
         </section>
     )
