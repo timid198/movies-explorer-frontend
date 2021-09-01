@@ -4,7 +4,7 @@ const checkResponse = (response) => response.ok ? response.json() : Promise.reje
 
 export const createMovie = (data) => {
     return fetch (`${API_URL}/movies`, {
-        method: 'GET',
+        method: 'POST',
         credentials: 'include',
             headers: {
                 'Content-Type': 'application/json'
@@ -15,9 +15,9 @@ export const createMovie = (data) => {
                 duration: `${data.duration}`,
                 year: `${data.year}`,
                 description: `${data.description}`,
-                image: `${data.image.url}`,
+                image: `https://api.nomoreparties.co${data.image.url}`,
                 trailer: `${data.trailerLink}`,
-                thumbnail: `${data.image.formats.thumbnail}`,
+                thumbnail: `https://api.nomoreparties.co${data.image.formats.thumbnail.url}`,
                 movieId: `${data.id}`,
                 nameRU: `${data.nameRU}`,
                 nameEN: `${data.nameEN}`,
@@ -28,7 +28,7 @@ export const createMovie = (data) => {
 };
 
 export const deleteMovie = (_id) => {
-    return fetch (`${API_URL}/movies/:movieId`, {
+    return fetch (`${API_URL}/movies/:${_id}`, {
         method: 'DELETE',
         credentials: 'include',        
     })
@@ -73,6 +73,7 @@ export const login = (email, password) => {
 
 export const getProfileData = () => {
     return fetch(`${API_URL}/users/me`, {
+        method: 'GET',
         credentials: 'include',
     })
     .then(checkResponse)
@@ -93,5 +94,5 @@ export const logout = () => {
         headers: {
             'Content-Type': 'application/json'},
     })
-    .then(checkResponse);
+    .then(res => res.send({ message: 'Вы произвели выход из аккаунта.' }));
 }

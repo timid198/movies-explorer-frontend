@@ -101,7 +101,7 @@ function Profile({handleButtonOpenClick, headerBackgrounColor, onUpdate, logout,
                         </label>
                     </fieldset>
                 </form>
-                <button type="submit" className="profile__logout" onClick={handleLogout}>Выйти из аккаунта</button>
+                <button type="submit" className="profile__logout" onClick={logout}>Выйти из аккаунта</button>
             </div>        
         </div>
     )
