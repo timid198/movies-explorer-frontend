@@ -1,9 +1,7 @@
 import { API_URL } from "./constants";
 
-const checkResponse = (response) => response.ok ? response.json() : Promise.reject();
-
-export const createMovie = (data) => {
-    return fetch (`${API_URL}/movies`, {
+export async function createMovie(data) {
+    let res = await fetch (`${API_URL}/movies`, {
         method: 'POST',
         credentials: 'include',
             headers: {
@@ -24,7 +22,13 @@ export const createMovie = (data) => {
                 
             })
     })
-    .then(checkResponse);
+     try {
+        if (res.status === 200) {
+            return res.json();
+        }
+    } catch (error) {
+        console.log(error);
+    }
 };
 
 export  async function deleteMovie(_id){
@@ -32,32 +36,42 @@ export  async function deleteMovie(_id){
     method: 'DELETE',
     credentials: 'include',        
 });
-    if (response.status === 200) {
-      let newMoviesList = await fetch (`${API_URL}/movies`, {
-        method: 'GET',
-        credentials: 'include',
-    });
-    if (newMoviesList.status === 200) {
-        return newMoviesList.json();
-    }
-    return;
+     try {
+        if (response.status === 200) {
+            let newMoviesList = await fetch (`${API_URL}/movies`, {
+              method: 'GET',
+              credentials: 'include',
+          });
+          if (newMoviesList.status === 200) {
+              return newMoviesList.json();
+          }
+          return;
+          } 
+    } catch (error) {
+        console.log(error);
     }
 };
 
-export const register = (name, email, password) => {
-    console.log('name :', name, 'email :', email, 'password :', password);
-    return fetch (`${API_URL}/signup`, {
+export async function register(name, email, password) {
+    let res = await fetch (`${API_URL}/signup`, {
         method: 'POST', 
         credentials: 'include',       
         headers: {
             'Content-Type': 'application/json'},
         body: JSON.stringify({name, email, password})
     })
-    .then(checkResponse);
+    
+     try {
+        if (res.status ===200) {
+            return res.json();
+        }
+    } catch (error) {
+        console.log(error);
+    }
 }
 
-export const editProfile = (name, email) => {
-    return fetch(`${API_URL}/users/me`, {
+export async function editProfile(name, email) {
+    let res = await fetch(`${API_URL}/users/me`, {
         method: 'PATCH',
         credentials: 'include',
         headers: {
@@ -65,43 +79,73 @@ export const editProfile = (name, email) => {
         },
         body: JSON.stringify({name, email})
     })
-
-    .then(checkResponse)
+    
+     try {
+        if (res.status === 200) {
+            return res.json();
+        }
+    } catch (error) {
+        console.log(error);
+    }
 }
 
-export const login = (email, password) => {
-    return fetch (`${API_URL}/signin`, {
+export async function login(email, password) {
+    let res = await fetch (`${API_URL}/signin`, {
         method: 'POST',
         credentials: 'include',
         headers: {
             'Content-Type': 'application/json'},
         body: JSON.stringify({email, password})
     })
-    .then(checkResponse);
+     try {
+        if (res.status === 200) {
+            return res.json();
+        }  
+    } catch (error) {
+        console.log(error);
+    }
 }
 
-export const getProfileData = () => {
-    return fetch(`${API_URL}/users/me`, {
+export async function getProfileData() {
+    let res = await fetch(`${API_URL}/users/me`, {
         method: 'GET',
         credentials: 'include',
     })
-    .then(checkResponse)
+    try {
+        if (res.status === 200) {
+            return res.json();
+        }
+    } catch (error) {
+        console.log(error);
+    }
 }
 
-export const getContent = () => {
-    return fetch (`${API_URL}/movies`, {
+export async function getContent() {
+    let res = await fetch (`${API_URL}/movies`, {
         method: 'GET',
         credentials: 'include',
     })
-    .then(checkResponse);
+    try {
+        if (res.status === 200) {
+            return res.json();
+        }
+    } catch (error) {
+        console.log(error);
+    }
 }
 
-export const logout = () => {
-    return fetch (`${API_URL}/signout`, {
+export async function logout() {
+    let res = await fetch (`${API_URL}/signout`, {
         method: 'POST',
         credentials: 'include',
         headers: {
             'Content-Type': 'application/json'},
     })
-    .then(res => console.log('Вы произвели выход из аккаунта.'))
+    try {
+        if (res.status === 401) {
+            res.send({message: 'Вы произвели выход из аккаунта.'})
+        }
+    } catch (error) {
+        console.log(error);
+    }
 }

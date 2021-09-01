@@ -4,7 +4,7 @@ import Header from '../Header/Header';
 import { CurrentUserContext } from '../../contexts/CurrentUserContext';
 import { useFormAndValidate } from '../../utils/FormWithValidation';
 
-function Profile({handleButtonOpenClick, headerBackgrounColor, onUpdate, logout, title, loggedIn}) {
+function Profile({handleButtonOpenClick, headerBackgrounColor, onUpdate, logout, title, navShow, loggedIn}) {
     
     const currentUser = useContext(CurrentUserContext);
     const {values, handleChange, errors, isValid} = useFormAndValidate();
@@ -42,16 +42,16 @@ function Profile({handleButtonOpenClick, headerBackgrounColor, onUpdate, logout,
         setEmail(e.target.value);
       }
 
-    function handleLogout(e) {
-        e.preventDefault();
-        logout();
-    }
+    // function handleLogout(e) {
+    //     e.preventDefault();
+    //     logout();
+    // }
     
     console.log(loggedIn);
 
     return (
         <div className="profile">
-            <Header handleButtonOpenClick={handleButtonOpenClick} headerBackgrounColor={headerBackgrounColor} loggedIn={loggedIn} />
+            <Header handleButtonOpenClick={handleButtonOpenClick} headerBackgrounColor={headerBackgrounColor} navShow={navShow} loggedIn={loggedIn} />
             <div className="profile-content">
                 <h2 className="profile-title">Привет, {formTitle}!</h2>
                 <form className="profile__form" onSubmit={handleSubmit}>

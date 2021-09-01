@@ -70,7 +70,6 @@ const updateUser = ({ name, email }) => {
 }
 
 const movieLike = (props, link) => {
-  console.log(props, link)
   if (link === 'movies') {
   if (!savedMovies.find((el) => el.movieId === props.id)){     
   clientApi.createMovie(props)
@@ -88,7 +87,6 @@ const movieLike = (props, link) => {
     console.log(res)})
   .catch(err => console.log(err))
 }}} if (link === 'saved-movies') {
-  console.log(link === 'saved-movies', props, link);
   savedMovies.splice(savedMovies.indexOf(props, 0), 1);
   clientApi.deleteMovie(props._id)
   .then(res => {
@@ -105,25 +103,62 @@ useEffect(() => {
   Promise.all([clientApi.getProfileData(), clientApi.getContent()])
     .then(res => {
       const [profileData, moviesData] = res;
+      if (profileData.length !== 0) {
       setLoggedIn(true);
       setCurrentUser({name: profileData.name, email: profileData.email, _id: profileData._id});
-      setSavedMovies(moviesData);
+      setSavedMovies(moviesData)};
       console.log(res)}) 
     .catch((err) => console.log(err))
 }, [loggedIn])
 
-// console.log(currentUser._id)
+console.log(savedMovies)
 
 return (
   <CurrentUserContext.Provider value={currentUser}>
     <div className="App"> 
       <Switch>
             <Route exact path="/">
-              <Main handleButtonOpenClick={handleBurgerMenuClick} headerBackgrounColor={headerColors.main} navShow="grid; [@media (max-width:1279px)]: display: none" loggedIn={loggedIn} />
+              <Main
+               handleButtonOpenClick={handleBurgerMenuClick}
+               headerBackgrounColor={headerColors.main}
+               navShow="grid; [@media (max-width:1279px)]: display: none"
+               loggedIn={loggedIn} />
             </Route>
-            <ProtectedRoute path="/movies" component={Movies} page={"movies"} likeFunc={movieLike} userId={currentUser._id} cards={movies} saved={savedMovies} width={width} handleButtonOpenClick={handleBurgerMenuClick} headerBackgrounColor={headerColors.default} loggedIn={loggedIn} / >
-            <ProtectedRoute path="/saved-movies" component={SavedMovies} page={"saved-movies"} likeFunc={movieLike} userId={currentUser._id} cards={[]} saved={savedMovies} handleButtonOpenClick={handleBurgerMenuClick} headerBackgrounColor={headerColors.default} loggedIn={loggedIn} / >
-            <ProtectedRoute path="/profile" component={Profile} onUpdate={updateUser}  logout={logoutUser} title={currentUser.name} handleButtonOpenClick={handleBurgerMenuClick} headerBackgrounColor={headerColors.profile} loggedIn={loggedIn} / >
+            <ProtectedRoute
+             path="/movies"
+             component={Movies}
+             page={"movies"}
+             likeFunc={movieLike}
+             userId={currentUser._id}
+             cards={movies}
+             saved={savedMovies}
+             width={width}
+             handleButtonOpenClick={handleBurgerMenuClick}
+             headerBackgrounColor={headerColors.default}
+             navShow="grid; [@media (max-width:1279px)]: display: none"
+             loggedIn={loggedIn} / >
+            <ProtectedRoute
+             path="/saved-movies"
+             component={SavedMovies}
+             page={"saved-movies"}
+             likeFunc={movieLike}
+             userId={currentUser._id}
+             cards={[]}
+             saved={savedMovies}
+             handleButtonOpenClick={handleBurgerMenuClick}
+             headerBackgrounColor={headerColors.default}
+             navShow="grid; [@media (max-width:1279px)]: display: none"
+             loggedIn={loggedIn} / >
+            <ProtectedRoute
+             path="/profile"
+             component={Profile}
+             onUpdate={updateUser}
+             logout={logoutUser}
+             title={currentUser.name}
+             handleButtonOpenClick={handleBurgerMenuClick}
+             headerBackgrounColor={headerColors.profile}
+             navShow="grid; [@media (max-width:1279px)]: display: none"
+             loggedIn={loggedIn} / >
             <Route path="/signin">
               <Login onUpdate={loginUser} />
             </Route>
@@ -135,7 +170,10 @@ return (
             </Route>
       </Switch>
 
-      <Popup handleButtonCloseClick={handleCloseClick} open={isBurgerMenuOpen} loggedIn={loggedIn} />
+      <Popup
+       handleButtonCloseClick={handleCloseClick}
+       open={isBurgerMenuOpen}
+       loggedIn={loggedIn} />
       <ErrorPopup open="" statusCode="404" text="Страница не найдена" />
     </div>
   </CurrentUserContext.Provider>

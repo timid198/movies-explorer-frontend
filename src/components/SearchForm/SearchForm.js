@@ -50,7 +50,7 @@ function handleSubmit(evt) {
             </fieldset>            
             <fieldset className="search-form__selection">
                 <label className="search-form__selection-section">
-                    <input type="checkbox" className="search-form__selector search-form__selector-hidden" />
+                    <input type="checkbox" className="search-form__selector search-form__selector-hidden" defaultChecked />
                     <span className="search-form__selector search-form__pseudo"></span>
                     <span className="search-form__short-movies">Короткометражки</span>
                 </label>
