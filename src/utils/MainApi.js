@@ -27,12 +27,21 @@ export const createMovie = (data) => {
     .then(checkResponse);
 };
 
-export const deleteMovie = (_id) => {
-    return fetch (`${API_URL}/movies/:${_id}`, {
-        method: 'DELETE',
-        credentials: 'include',        
-    })
-    .then(checkResponse);
+export  async function deleteMovie(_id){
+   let response = await fetch (`${API_URL}/movies/${_id}`, {
+    method: 'DELETE',
+    credentials: 'include',        
+});
+    if (response.status === 200) {
+      let newMoviesList = await fetch (`${API_URL}/movies`, {
+        method: 'GET',
+        credentials: 'include',
+    });
+    if (newMoviesList.status === 200) {
+        return newMoviesList.json();
+    }
+    return;
+    }
 };
 
 export const register = (name, email, password) => {
@@ -94,5 +103,5 @@ export const logout = () => {
         headers: {
             'Content-Type': 'application/json'},
     })
-    .then(res => res.send({ message: 'Вы произвели выход из аккаунта.' }));
+    .then(res => console.log('Вы произвели выход из аккаунта.'))
 }

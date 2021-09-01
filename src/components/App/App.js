@@ -56,13 +56,9 @@ const loginUser = ({email, password}) => {
 }
 
 const logoutUser = () => {
-<<<<<<< HEAD
-  history.push('/');
-=======
-  console.log('Click');
->>>>>>> 94ba82e845fd7581d2d18bc9243d72ab79329917
   clientApi.logout()
-  .then(res => {setLoggedIn(false);                
+  .then(res => {setLoggedIn(false);
+    history.push('/');
     console.log({'пришёл ответ от логаута': res})})
 }
 
@@ -75,16 +71,22 @@ const updateUser = ({ name, email }) => {
 
 const movieLike = (props) => {
   console.log(props)
-  if (props.owner !== currentUser._id){  
+  if (!savedMovies.find((el) => el.movieId === props.id)){     
   clientApi.createMovie(props)
-  .then(res => console.log('Фильм добавлен в сохранённые', res))
+  .then(res => {setSavedMovies([...savedMovies, res]);
+    console.log('Фильм добавлен в сохранённые', savedMovies)})
   .catch(err => console.log(err))
 }else{
-  props.added=true;
-  clientApi.deleteMovie(props._id)
-  .then(res => console.log('Фильм удалён из сохранённых', res))
+  let deletedMovie = savedMovies.find((movie) => movie.movieId === props.id);
+  console.log(deletedMovie._id);
+   if (deletedMovie) {
+    console.log(deletedMovie._id);
+  clientApi.deleteMovie(deletedMovie._id)
+  .then(res => {
+    setSavedMovies(res);
+    console.log(res)})
   .catch(err => console.log(err))
-}
+}}
 }
 
 useEffect(() => {
