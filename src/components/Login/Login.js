@@ -61,7 +61,7 @@ function Login({ onUpdate }) {
             <label className="form__label" htmlFor="password">Пароль</label>
             <input
              form="form"
-             type="text"
+             type="password"
              name="password"
              id="password"
              className={`form__input ${errors.password ? 'form__input-error' : ''}`}

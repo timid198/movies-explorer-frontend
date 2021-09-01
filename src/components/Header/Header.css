@@ -70,6 +70,10 @@
     }
 }
 
+.header-auth_hidden {
+    display: none;
+}
+
 .header-auth__registration {
     display: block;
     position: relative;
@@ -150,6 +154,10 @@
     display: block;
 }
 
+.header-profile_hidden {
+    display: none;
+}
+
 .header-burger {
     display: none;
     position: absolute;
@@ -188,4 +196,8 @@
         top: 15px;
         background-size: 40px, 43px, cover;
     }
+}
+
+.header-burger_hidden {
+    display: none;
 }

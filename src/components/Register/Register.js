@@ -57,6 +57,7 @@ function Register({ onUpdate }) {
              value={values.name || ''}
              onChange={handleChange}
              autoFocus={true}
+             tabindex="1"
              formNoValidate
               />
             <span className={`form__input-message ${!isValid ? 'form__input-message_active' : ''}`}>{errors.name}</span>
@@ -76,6 +77,7 @@ function Register({ onUpdate }) {
              onChange={handleChange}
              autoFocus={true}
              tabindex="2"
+             formNoValidate
               />
             <span className={`form__input-message ${!isValid ? 'form__input-message_active' : ''}`}>{errors.email}</span>
         </div>
@@ -83,7 +85,7 @@ function Register({ onUpdate }) {
             <label className="form__label" htmlFor="password">Пароль</label>
             <input
              form="form"
-             type="text"
+             type="password"
              name="password"
              id="password"
              className={`form__input ${errors.password ? 'form__input-error' : ''}`}
@@ -94,7 +96,8 @@ function Register({ onUpdate }) {
              value={values.password || ''}
              onChange={handleChange}
              autoFocus={true}
-             tabindex="0"
+             tabindex="3"
+             formNoValidate
               />
             <span className={`form__input-message ${!isValid ? 'form__input-message_active' : ''}`}>{errors.password}</span>
         </div>

@@ -119,7 +119,7 @@ return (
     <div className="App"> 
       <Switch>
             <Route exact path="/">
-              <Main handleButtonOpenClick={handleBurgerMenuClick} headerBackgrounColor={headerColors.main} loggedIn={loggedIn} />
+              <Main handleButtonOpenClick={handleBurgerMenuClick} headerBackgrounColor={headerColors.main} navShow="grid; [@media (max-width:1279px)]: display: none" loggedIn={loggedIn} />
             </Route>
             <ProtectedRoute path="/movies" component={Movies} page={"movies"} likeFunc={movieLike} userId={currentUser._id} cards={movies} saved={savedMovies} width={width} handleButtonOpenClick={handleBurgerMenuClick} headerBackgrounColor={headerColors.default} loggedIn={loggedIn} / >
             <ProtectedRoute path="/saved-movies" component={SavedMovies} page={"saved-movies"} likeFunc={movieLike} userId={currentUser._id} cards={[]} saved={savedMovies} handleButtonOpenClick={handleBurgerMenuClick} headerBackgrounColor={headerColors.default} loggedIn={loggedIn} / >
@@ -135,7 +135,7 @@ return (
             </Route>
       </Switch>
 
-      <Popup handleButtonCloseClick={handleCloseClick} open={isBurgerMenuOpen} />
+      <Popup handleButtonCloseClick={handleCloseClick} open={isBurgerMenuOpen} loggedIn={loggedIn} />
       <ErrorPopup open="" statusCode="404" text="Страница не найдена" />
     </div>
   </CurrentUserContext.Provider>
