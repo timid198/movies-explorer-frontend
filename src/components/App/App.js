@@ -55,9 +55,9 @@ const loginUser = ({email, password}) => {
 }
 
 const logoutUser = () => {
+  history.push('/');
   clientApi.logout()
-  .then(res => {setLoggedIn(false);
-                history.push('/');
+  .then(res => {setLoggedIn(false);                
     console.log({'пришёл ответ от логаута': res})})
 }
 

@@ -38,7 +38,8 @@ export const deleteMovie = (_id) => {
 export const register = (name, email, password) => {
     console.log('name :', name, 'email :', email, 'password :', password);
     return fetch (`${API_URL}/signup`, {
-        method: 'POST',        
+        method: 'POST', 
+        credentials: 'include',       
         headers: {
             'Content-Type': 'application/json'},
         body: JSON.stringify({name, email, password})
