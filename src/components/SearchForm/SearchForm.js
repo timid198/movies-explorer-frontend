@@ -7,6 +7,7 @@ function SearchForm({  onChange, onSubmit }) {
 const {values, handleChange, errors, isValid} = useFormAndValidate();
 
 const [ isInputFocused, setIsInputFocused ] = useState(false);
+const [ shortMovie, isShortMovie ] = useState(true);
 
 useEffect(()=> {
     setIsInputFocused(true);
@@ -19,6 +20,7 @@ function handleSubmit(evt) {
     onSubmit();
     onChange({
           movies: movieRef.current.value,
+          movieShort: shortMovie,
         });
         movieRef.current.value = '';
 }
@@ -50,7 +52,7 @@ function handleSubmit(evt) {
             </fieldset>            
             <fieldset className="search-form__selection">
                 <label className="search-form__selection-section">
-                    <input type="checkbox" className="search-form__selector search-form__selector-hidden" defaultChecked />
+                    <input type="checkbox" className="search-form__selector search-form__selector-hidden" defaultChecked onChange={() => isShortMovie(shortMovie => !shortMovie)} />
                     <span className="search-form__selector search-form__pseudo"></span>
                     <span className="search-form__short-movies">Короткометражки</span>
                 </label>

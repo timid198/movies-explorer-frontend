@@ -7,7 +7,7 @@ import Preloader from '../Preloader/Preloader';
 import Footer from '../Footer/Footer';
 
 function Movies({handleButtonOpenClick, headerBackgrounColor, page, likeFunc, userId, cards, saved, width, navShow, loggedIn}) {
-    const [isSearchRequest, setIsSearchRequest] = useState({movies: ''});
+    const [isSearchRequest, setIsSearchRequest] = useState({movies: '', movieShort: true});
     const [isActive, setIsActive] = useState(true);
     const [movieCount, setMovieCount] = useState(5);
     const [isMovieSearched, setIsMovieSearched] = useState(false);
@@ -25,14 +25,22 @@ function Movies({handleButtonOpenClick, headerBackgrounColor, page, likeFunc, us
     }; 
 
     const filterMovies = (movie, query) => {
-    if (movie.nameRU.toString().toLowerCase().includes(query.movies.toString().toLowerCase()) || 
-        (movie.nameEN !== null && 
-            movie.nameEN.toString().toLowerCase().includes(query.movies.toString().toLowerCase()))) {
-                return movie;
-            }
-            return;
-
-    };
+        if (query.movieShort) {
+            if (((movie.nameRU.toString().toLowerCase().includes(query.movies.toString().toLowerCase()) || 
+                (movie.nameEN !== null && 
+                    movie.nameEN.toString().toLowerCase().includes(query.movies.toString().toLowerCase())))) && movie.duration <= 40) {
+                    return movie;
+                }
+                return;
+        }else{
+            if (movie.nameRU.toString().toLowerCase().includes(query.movies.toString().toLowerCase()) || 
+                (movie.nameEN !== null && 
+                    movie.nameEN.toString().toLowerCase().includes(query.movies.toString().toLowerCase()))) {
+                    return movie;
+                }
+                return;
+        }
+        };
 
     const filteredMovies = cards.filter(card => filterMovies(card, isSearchRequest));
     const toAddingMovies = filteredMovies.slice(0, movieCount);
@@ -72,7 +80,7 @@ function Movies({handleButtonOpenClick, headerBackgrounColor, page, likeFunc, us
         setTimeout(() => appWidth(), 1000);
     });
 
-    console.log(loggedIn);
+    console.log(isSearchRequest);
 
     return(        
         <div className="Movies">

@@ -38,7 +38,7 @@ function handleCloseClick() {
 const getMovies = () => {
   beatfilmMoviesApi.getContentFromBeatFilmMovies()
   .then((res) => {
-    console.log(res);
+    console.log('Фильмы от BeatfilmMovies получены.');
     setMovies(res)})
   .catch((err) => console.log(err))
 }
@@ -63,7 +63,6 @@ const logoutUser = () => {
 }
 
 const updateUser = ({ name, email }) => {
-  console.log({ name, email });
   clientApi.editProfile(name,email)
   .then(res => {console.log({'пришёл ответ после обновления профиля': res});
   setCurrentUser({name: res.name, email: res.email});})
@@ -74,24 +73,22 @@ const movieLike = (props, link) => {
   if (!savedMovies.find((el) => el.movieId === props.id)){     
   clientApi.createMovie(props)
   .then(res => {setSavedMovies([...savedMovies, res]);
-    console.log('Фильм добавлен в сохранённые', savedMovies)})
+    console.log('Фильм добавлен в сохранённые.')})
   .catch(err => console.log(err))
 }else{  
-  console.log(link === 'movies', props, link);
   let deletedMovie = savedMovies.find((movie) => movie.movieId === props.id);
    if (deletedMovie) {
-    console.log(deletedMovie._id);
   clientApi.deleteMovie(deletedMovie._id)
   .then(res => {
     setSavedMovies(res);
-    console.log(res)})
+    console.log('Фильм удалён из сохранённых.')})
   .catch(err => console.log(err))
 }}} if (link === 'saved-movies') {
   savedMovies.splice(savedMovies.indexOf(props, 0), 1);
   clientApi.deleteMovie(props._id)
   .then(res => {
     setSavedMovies(res);
-    console.log(res)})
+    console.log('Фильм удалён из сохранённых.')})
   .catch(err => console.log(err))
 }}
 
@@ -100,14 +97,12 @@ useEffect(() => {
 }, [])
 
 useEffect(() => {
-  Promise.all([clientApi.getProfileData(), clientApi.getContent({userId: currentUser._id})])
+  Promise.all([clientApi.getProfileData(), clientApi.getContent()])
     .then(res => {
       const [profileData, moviesData] = res;
-      if (profileData.length !== 0) {
+      setSavedMovies(moviesData)
       setLoggedIn(true);
-      setCurrentUser({name: profileData.name, email: profileData.email, _id: profileData._id});
-      setSavedMovies(moviesData)};
-      console.log(res)}) 
+      setCurrentUser({name: profileData.name, email: profileData.email, _id: profileData._id})}) 
     .catch((err) => console.log(err))
 }, [loggedIn])
 

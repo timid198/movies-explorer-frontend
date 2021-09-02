@@ -120,11 +120,10 @@ export async function getProfileData() {
     }
 }
 
-export async function getContent(iserId) {
+export async function getContent() {
     let res = await fetch (`${API_URL}/movies`, {
         method: 'GET',
         credentials: 'include',
-        body: JSON.stringify({iserId})
     })
     try {
         if (res.status === 200) {
@@ -143,7 +142,7 @@ export async function logout() {
             'Content-Type': 'application/json'},
     })
     try {
-        if (res.status === 401) {
+        if (res.status === 200) {
             res.send({message: 'Вы произвели выход из аккаунта.'})
         }
     } catch (error) {

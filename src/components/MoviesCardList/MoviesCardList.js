@@ -15,7 +15,7 @@ function MoviesCardList({likeFunc, userId, page, cards, saved}) {
                 }
             })
         } else if ( link === "saved-movies" ) {
-            return choosen.map((item) => (<MoviesCard key={item._id} card={item} userId={userId} likeFunc={likeFunc} added={true} page={page} />))
+            return sorted.map((item) => (<MoviesCard key={item._id} card={item} userId={userId} likeFunc={likeFunc} added={true} page={page} />))
         }
     }
 
