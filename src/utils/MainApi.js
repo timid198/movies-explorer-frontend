@@ -120,10 +120,11 @@ export async function getProfileData() {
     }
 }
 
-export async function getContent() {
+export async function getContent(iserId) {
     let res = await fetch (`${API_URL}/movies`, {
         method: 'GET',
         credentials: 'include',
+        body: JSON.stringify({iserId})
     })
     try {
         if (res.status === 200) {

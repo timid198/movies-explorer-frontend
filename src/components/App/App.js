@@ -100,7 +100,7 @@ useEffect(() => {
 }, [])
 
 useEffect(() => {
-  Promise.all([clientApi.getProfileData(), clientApi.getContent()])
+  Promise.all([clientApi.getProfileData(), clientApi.getContent({userId: currentUser._id})])
     .then(res => {
       const [profileData, moviesData] = res;
       if (profileData.length !== 0) {
