@@ -53,7 +53,6 @@ function handleError(el) {
 const getMovies = () => {
   beatfilmMoviesApi.getContentFromBeatFilmMovies()
   .then((res) => {
-    console.log('Фильмы от BeatfilmMovies получены.');
     setMovies(res)})
   .catch((err) => handleError(err))
   .finally(() => setLoading(false))
@@ -62,7 +61,7 @@ const getMovies = () => {
 const registerUser = ({name, email, password}) => { 
   setLoading(true); 
   clientApi.register(name, email, password)
-  .then(res => console.log({'пришёл ответ регистрация': res}))
+  .then(res => console.log('Вы успешно зарегистрировались.'))
   .catch((err) => handleError(err))
   .finally(() => setLoading(false))
 }
@@ -71,7 +70,6 @@ const loginUser = ({email, password}) => {
   setLoading(true);
   clientApi.login(email, password)
   .then(res => {setLoggedIn(true);
-                console.log({'пришёл ответ от входа': res});
                 history.push('/movies');})
   .catch((err) => handleError(err))
   .finally(() => setLoading(false))
@@ -82,7 +80,7 @@ const logoutUser = () => {
   clientApi.logout()
   .then(res => {setLoggedIn(false);
     history.push('/');
-    console.log({'пришёл ответ от логаута': res})})
+    console.log('Вы вышли из профиля.')})
   .catch((err) => handleError(err))
   .finally(() => setLoading(false))
 }
@@ -90,7 +88,7 @@ const logoutUser = () => {
 const updateUser = ({ name, email }) => {
   setLoading(true);
   clientApi.editProfile(name,email)
-  .then(res => {console.log({'пришёл ответ после обновления профиля': res});
+  .then(res => {console.log('Профиль обновлён');
   setCurrentUser({name: res.name, email: res.email});})
   .catch((err) => handleError(err))
   .finally(() => setLoading(false))
@@ -137,8 +135,6 @@ useEffect(() => {
       setLoggedIn(true);}) 
     .catch((err) => handleError(err))
 }, [loggedIn])
-
-console.log(loggedIn, currentUser )
 
 return (
   <CurrentUserContext.Provider value={currentUser}>
