@@ -11,7 +11,6 @@ import Footer from '../Footer/Footer';
 
 
 function Main({handleButtonOpenClick, headerBackgrounColor, navShow, loggedIn}) {
-    console.log(loggedIn);
     return(
         <div className="Main">
             <Header handleButtonOpenClick={handleButtonOpenClick} headerBackgrounColor={headerBackgrounColor} navShow={navShow} loggedIn={loggedIn} />

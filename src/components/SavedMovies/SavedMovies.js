@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import './SavedMovies.css';
 import Header from '../Header/Header';
 import SearchForm from '../SearchForm/SearchForm';
@@ -6,7 +6,7 @@ import MoviesCardList from '../MoviesCardList/MoviesCardList';
 import Footer from '../Footer/Footer';
 import Preloader from '../Preloader/Preloader';
 
-function SavedMovies({handleButtonOpenClick, headerBackgrounColor, page, likeFunc, userId, cards, saved, navShow, loggedIn}) {
+function SavedMovies({handleButtonOpenClick, headerBackgrounColor, page, likeFunc, userId, cards, saved, navShow, loggedIn, isLoading}) {
 
     const [isSearchRequest, setIsSearchRequest] = useState({movies: '', movieShort: true});
     const [isMovieSearched, setIsMovieSearched] = useState(false);
@@ -23,9 +23,6 @@ function SavedMovies({handleButtonOpenClick, headerBackgrounColor, page, likeFun
     }; 
 
     const filterMovies = (movie, query) => {
-        console.log(((movie.nameRU.toString().toLowerCase().includes(query.movies.toString().toLowerCase()) || 
-        (movie.nameEN !== null && 
-            movie.nameEN.toString().toLowerCase().includes(query.movies.toString().toLowerCase())))) && movie.duration <= 40);
         if (query.movieShort) {
             if (((movie.nameRU.toString().toLowerCase().includes(query.movies.toString().toLowerCase()) || 
                 (movie.nameEN !== null && 
@@ -45,16 +42,20 @@ function SavedMovies({handleButtonOpenClick, headerBackgrounColor, page, likeFun
 
     const filteredMovies = saved.filter(card => filterMovies(card, isSearchRequest));
 
-    console.log(saved);
-    
+    useEffect(() => {
+        if (filteredMovies.length !== 0 || filteredMovies.length === 0) {
+            setLoading(false);
+        }
+    }, [filteredMovies])
+
     return (
         <div className="Saved-movies">
             <Header handleButtonOpenClick={handleButtonOpenClick} headerBackgrounColor={headerBackgrounColor} navShow={navShow} loggedIn={loggedIn} />
-                <div className="Saved-movies__content">
+                <div className="Saved-movies__content">                
                 <SearchForm onChange={handleSearchRequest} onSubmit={handleSubmit} />
+                {loading ? (<Preloader />) : ''}
                     {  (!isMovieSearched) ? (
-                        <div className="Saved-movies__before-search">
-                            {loading ? (<Preloader />) : ''}
+                        <div className="Saved-movies__before-search">                            
                         </div>
                     ) : ( (filteredMovies.length !== 0) ? (
                     <div className="Saved-movies__add">

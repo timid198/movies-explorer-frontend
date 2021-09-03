@@ -1,10 +1,11 @@
 import React, {useState, useContext, useEffect} from 'react';
 import './Profile.css';
 import Header from '../Header/Header';
+import Preloader from '../Preloader/Preloader';
 import { CurrentUserContext } from '../../contexts/CurrentUserContext';
 import { useFormAndValidate } from '../../utils/FormWithValidation';
 
-function Profile({handleButtonOpenClick, headerBackgrounColor, onUpdate, logout, title, navShow, loggedIn}) {
+function Profile({handleButtonOpenClick, headerBackgrounColor, onUpdate, logout, title, navShow, loggedIn, isLoading}) {
     
     const currentUser = useContext(CurrentUserContext);
     const {values, handleChange, errors, isValid} = useFormAndValidate();
@@ -42,18 +43,12 @@ function Profile({handleButtonOpenClick, headerBackgrounColor, onUpdate, logout,
         setEmail(e.target.value);
       }
 
-    // function handleLogout(e) {
-    //     e.preventDefault();
-    //     logout();
-    // }
-    
-    console.log(loggedIn);
-
     return (
-        <div className="profile">
+        <div className="profile">            
             <Header handleButtonOpenClick={handleButtonOpenClick} headerBackgrounColor={headerBackgrounColor} navShow={navShow} loggedIn={loggedIn} />
             <div className="profile-content">
                 <h2 className="profile-title">Привет, {formTitle}!</h2>
+                { isLoading ? <Preloader /> : ''}
                 <form className="profile__form" onSubmit={handleSubmit}>
                     <fieldset className="profile__name">
                         <label className="register-input__label">Имя</label>

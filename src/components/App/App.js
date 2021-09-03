@@ -25,6 +25,9 @@ const [movies, setMovies] = useState([]);
 const [loggedIn, setLoggedIn] = useState(false);
 const [currentUser, setCurrentUser] = useState({name: CurrentUserContext.name, email: CurrentUserContext.email, _id: CurrentUserContext._id});
 const [savedMovies, setSavedMovies] = useState([]);
+const [loading, setLoading] = useState(false);
+const [openErrorPopup, setOpenErrorPopup] = useState(false);
+const [errorContent, setErrorContent] = useState({satusCode: '', statusMessage: ''});
 const history = useHistory();
 
 function handleBurgerMenuClick() {
@@ -35,61 +38,90 @@ function handleCloseClick() {
   setIsBurgerMenuOpen(false);
 }
 
+function handleErrorPopup() {
+  setOpenErrorPopup(false);
+  setErrorContent({satusCode: '', statusMessage: ''});
+}
+
+function handleError(el) {
+  if (el.satusCode && el.message) {
+  setOpenErrorPopup(true);
+  setErrorContent({satusCode: el.satusCode, statusMessage: el.message});
+  }
+}
+
 const getMovies = () => {
   beatfilmMoviesApi.getContentFromBeatFilmMovies()
   .then((res) => {
     console.log('Фильмы от BeatfilmMovies получены.');
     setMovies(res)})
-  .catch((err) => console.log(err))
+  .catch((err) => handleError(err))
+  .finally(() => setLoading(false))
 }
 
-const registerUser = ({name, email, password}) => {  
+const registerUser = ({name, email, password}) => { 
+  setLoading(true); 
   clientApi.register(name, email, password)
   .then(res => console.log({'пришёл ответ регистрация': res}))
+  .catch((err) => handleError(err))
+  .finally(() => setLoading(false))
 }
 
 const loginUser = ({email, password}) => {
+  setLoading(true);
   clientApi.login(email, password)
-  .then(res => {console.log({'пришёл ответ от входа': res});
-                history.push('/movies');
-                setLoggedIn(true);})
+  .then(res => {setLoggedIn(true);
+                console.log({'пришёл ответ от входа': res});
+                history.push('/movies');})
+  .catch((err) => handleError(err))
+  .finally(() => setLoading(false))
 }
 
 const logoutUser = () => {
+  setLoading(true);
   clientApi.logout()
   .then(res => {setLoggedIn(false);
     history.push('/');
     console.log({'пришёл ответ от логаута': res})})
+  .catch((err) => handleError(err))
+  .finally(() => setLoading(false))
 }
 
 const updateUser = ({ name, email }) => {
+  setLoading(true);
   clientApi.editProfile(name,email)
   .then(res => {console.log({'пришёл ответ после обновления профиля': res});
   setCurrentUser({name: res.name, email: res.email});})
+  .catch((err) => handleError(err))
+  .finally(() => setLoading(false))
 }
 
 const movieLike = (props, link) => {
+  setLoading(true);
   if (link === 'movies') {
-  if (!savedMovies.find((el) => el.movieId === props.id)){     
+  if (!savedMovies.find((el) => el.movieId === props.id)){ 
   clientApi.createMovie(props)
   .then(res => {setSavedMovies([...savedMovies, res]);
     console.log('Фильм добавлен в сохранённые.')})
-  .catch(err => console.log(err))
-}else{  
+  .catch(err => handleError(err))
+  .finally(() => setLoading(false))
+}else{
   let deletedMovie = savedMovies.find((movie) => movie.movieId === props.id);
    if (deletedMovie) {
   clientApi.deleteMovie(deletedMovie._id)
   .then(res => {
     setSavedMovies(res);
     console.log('Фильм удалён из сохранённых.')})
-  .catch(err => console.log(err))
+  .catch(err => handleError(err))
+  .finally(() => setLoading(false))
 }}} if (link === 'saved-movies') {
   savedMovies.splice(savedMovies.indexOf(props, 0), 1);
   clientApi.deleteMovie(props._id)
   .then(res => {
     setSavedMovies(res);
     console.log('Фильм удалён из сохранённых.')})
-  .catch(err => console.log(err))
+  .catch(err => handleError(err))
+  .finally(() => setLoading(false))
 }}
 
 useEffect(() => {
@@ -100,13 +132,13 @@ useEffect(() => {
   Promise.all([clientApi.getProfileData(), clientApi.getContent()])
     .then(res => {
       const [profileData, moviesData] = res;
-      setSavedMovies(moviesData)
-      setLoggedIn(true);
-      setCurrentUser({name: profileData.name, email: profileData.email, _id: profileData._id})}) 
-    .catch((err) => console.log(err))
+      setSavedMovies(moviesData)      
+      setCurrentUser({name: profileData.name, email: profileData.email, _id: profileData._id});
+      setLoggedIn(true);}) 
+    .catch((err) => handleError(err))
 }, [loggedIn])
 
-console.log(savedMovies)
+console.log(loggedIn, currentUser )
 
 return (
   <CurrentUserContext.Provider value={currentUser}>
@@ -117,7 +149,9 @@ return (
                handleButtonOpenClick={handleBurgerMenuClick}
                headerBackgrounColor={headerColors.main}
                navShow="grid; [@media (max-width:1279px)]: display: none"
-               loggedIn={loggedIn} />
+               loggedIn={loggedIn}
+               isLoading={loading}
+                />
             </Route>
             <ProtectedRoute
              path="/movies"
@@ -131,7 +165,9 @@ return (
              handleButtonOpenClick={handleBurgerMenuClick}
              headerBackgrounColor={headerColors.default}
              navShow="grid; [@media (max-width:1279px)]: display: none"
-             loggedIn={loggedIn} / >
+             loggedIn={loggedIn}
+             isLoading={loading}
+              / >
             <ProtectedRoute
              path="/saved-movies"
              component={SavedMovies}
@@ -143,7 +179,8 @@ return (
              handleButtonOpenClick={handleBurgerMenuClick}
              headerBackgrounColor={headerColors.default}
              navShow="grid; [@media (max-width:1279px)]: display: none"
-             loggedIn={loggedIn} / >
+             loggedIn={loggedIn}
+              / >
             <ProtectedRoute
              path="/profile"
              component={Profile}
@@ -153,12 +190,20 @@ return (
              handleButtonOpenClick={handleBurgerMenuClick}
              headerBackgrounColor={headerColors.profile}
              navShow="grid; [@media (max-width:1279px)]: display: none"
-             loggedIn={loggedIn} / >
+             loggedIn={loggedIn}
+             isLoading={loading}
+              / >
             <Route path="/signin">
-              <Login onUpdate={loginUser} />
+              <Login
+               onUpdate={loginUser}
+               isLoading={loading}
+                />
             </Route>
             <Route path="/signup">
-              <Register onUpdate={registerUser} />
+              <Register
+               onUpdate={registerUser}
+               isLoading={loading}
+                />
             </Route>
             <Route>
               {loggedIn ? <Redirect to="/movies" /> : <Redirect to="/" />}
@@ -168,8 +213,10 @@ return (
       <Popup
        handleButtonCloseClick={handleCloseClick}
        open={isBurgerMenuOpen}
-       loggedIn={loggedIn} />
-      <ErrorPopup open="" statusCode="404" text="Страница не найдена" />
+       loggedIn={loggedIn}
+        />
+
+      <ErrorPopup open={openErrorPopup} updater={handleErrorPopup} statusCode={errorContent.satusCode} text={errorContent.statusMessage} />
     </div>
   </CurrentUserContext.Provider>
   );

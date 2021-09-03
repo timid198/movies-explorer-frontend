@@ -6,7 +6,7 @@ import MoviesCardList from '../MoviesCardList/MoviesCardList';
 import Preloader from '../Preloader/Preloader';
 import Footer from '../Footer/Footer';
 
-function Movies({handleButtonOpenClick, headerBackgrounColor, page, likeFunc, userId, cards, saved, width, navShow, loggedIn}) {
+function Movies({handleButtonOpenClick, headerBackgrounColor, page, likeFunc, userId, cards, saved, width, navShow, loggedIn, isLoading}) {
     const [isSearchRequest, setIsSearchRequest] = useState({movies: '', movieShort: true});
     const [isActive, setIsActive] = useState(true);
     const [movieCount, setMovieCount] = useState(5);
@@ -80,16 +80,14 @@ function Movies({handleButtonOpenClick, headerBackgrounColor, page, likeFunc, us
         setTimeout(() => appWidth(), 1000);
     });
 
-    console.log(isSearchRequest);
-
     return(        
         <div className="Movies">
             <Header handleButtonOpenClick={handleButtonOpenClick} headerBackgrounColor={headerBackgrounColor} navShow={navShow} loggedIn={loggedIn} />
-                <div className="Movies-content">
+                <div className="Movies-content">                    
                     <SearchForm onChange={handleSearchRequest} onSubmit={handleSubmit} />
+                    {loading || isLoading ? (<Preloader />) : ''}
                     {  (!isMovieSearched) ? (
-                        <div className="Movies__before-search">
-                            {loading ? (<Preloader />) : ''}
+                        <div className="Movies__before-search">                            
                         </div>
                     ) : ( (filteredMovies.length !== 0) ? (
                     <div className="Movies__add">
