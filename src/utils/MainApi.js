@@ -142,8 +142,7 @@ export async function logout() {
             'Content-Type': 'application/json'},
     })
     try {
-        console.log(res);
-        if (res.status === 401) {
+        if (res.status === 200) {
             res.send({message: 'Вы произвели выход из аккаунта.'})
         }
     } catch (error) {

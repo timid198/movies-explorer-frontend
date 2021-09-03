@@ -69,6 +69,12 @@ function Movies({handleButtonOpenClick, headerBackgrounColor, page, likeFunc, us
     }
 
     useEffect(() => {
+        if (filteredMovies.length !== 0 || filteredMovies.length === 0) {
+            setLoading(false);
+        }
+    }, [filteredMovies])
+
+    useEffect(() => {
         toAddMoviesInitial();
     });
 

@@ -2,7 +2,6 @@ import React from 'react';
 import './MoviesCard.css';
 
 function MoviesCard({likeFunc, card, userId, added, page}) {
-    console.log(card);
 
     const bringingTheTime = () => {
         let hours = Math.floor(card.duration/60);

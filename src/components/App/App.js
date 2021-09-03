@@ -79,8 +79,7 @@ const logoutUser = () => {
   setLoading(true);
   clientApi.logout()
   .then(res => {setLoggedIn(false);
-    history.push('/');
-    console.log('Вы вышли из профиля.')})
+    history.push('/')})
   .catch((err) => handleError(err))
   .finally(() => setLoading(false))
 }

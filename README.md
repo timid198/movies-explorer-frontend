@@ -1,5 +1,11 @@
 # Getting Started with Create React App
 
+Проект: movies-explorer-frontend
+Клиентская часть сервиса поиска фильмов по запросу на ресурсе Beat Film с возможностью сохранять понравившиеся фильмы в личном кабинете.
+
+Адрес сервера клиентской части: https://https://azannik.nomoredomains.club
+
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
