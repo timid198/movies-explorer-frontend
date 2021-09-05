@@ -47,7 +47,6 @@ function Register({ onUpdate }) {
              form="form"
              type="text"
              name="name"
-             id="name"
              className={`form__input ${errors.name ? 'form__input-error' : ''}`}
              minLength="2"
              maxLength="30"
@@ -57,7 +56,6 @@ function Register({ onUpdate }) {
              value={values.name || ''}
              onChange={handleChange}
              autoFocus={true}
-             tabindex="1"
              formNoValidate
               />
             <span className={`form__input-message ${!isValid ? 'form__input-message_active' : ''}`}>{errors.name}</span>
@@ -68,7 +66,6 @@ function Register({ onUpdate }) {
              form="form"
              type="email"
              name="email"
-             id="email"
              className={`form__input ${errors.email ? 'form__input-error' : ''}`}
              placeholder="E-mail"
              required
@@ -76,7 +73,6 @@ function Register({ onUpdate }) {
              value={values.email || ''}
              onChange={handleChange}
              autoFocus={true}
-             tabindex="2"
              formNoValidate
               />
             <span className={`form__input-message ${!isValid ? 'form__input-message_active' : ''}`}>{errors.email}</span>
@@ -87,7 +83,6 @@ function Register({ onUpdate }) {
              form="form"
              type="password"
              name="password"
-             id="password"
              className={`form__input ${errors.password ? 'form__input-error' : ''}`}
              minLength="8"
              placeholder="Пароль"
@@ -96,7 +91,6 @@ function Register({ onUpdate }) {
              value={values.password || ''}
              onChange={handleChange}
              autoFocus={true}
-             tabindex="3"
              formNoValidate
               />
             <span className={`form__input-message ${!isValid ? 'form__input-message_active' : ''}`}>{errors.password}</span>

@@ -46,14 +46,12 @@ function Login({ onUpdate }) {
              form="form"
              type="email"
              name="email"
-             id="email"
              className={`form__input ${errors.email ? 'form__input-error' : ''}`}
              placeholder="E-mail"
              required
              ref={emailRef}
-             value={values.email || ''}
+             value={values.email}
              onChange={handleChange}
-             autoFocus={true}
               />
             <span className={`form__input-message ${!isValid ? 'form__input-message_active' : ''}`}>{errors.email}</span>
         </div>
@@ -63,15 +61,13 @@ function Login({ onUpdate }) {
              form="form"
              type="password"
              name="password"
-             id="password"
              className={`form__input ${errors.password ? 'form__input-error' : ''}`}
              minLength="8"
              placeholder="Пароль"
              required
              ref={passwordRef}
-             value={values.password || ''}
+             value={values.password}
              onChange={handleChange}
-             autoFocus={true}
               />
             <span className={`form__input-message ${!isValid ? 'form__input-message_active' : ''}`}>{errors.password}</span>
         </div>

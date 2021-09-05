@@ -3,7 +3,6 @@ import './MoviesCardList.css';
 import MoviesCard from '../MoviesCard/MoviesCard';
 
 function MoviesCardList({likeFunc, userId, page, cards, saved}) {
-
     const renderCardList = (link, sorted, choosen) => {
         if ( link === "movies" ) {
             return sorted.map((item) => {

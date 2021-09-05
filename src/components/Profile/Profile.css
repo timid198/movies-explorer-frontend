@@ -49,6 +49,7 @@
 }
 
 .profile-title {
+    position: relative;
     margin: 0; 
     padding: 0;   
     font-family: 'Inter', 'Arial', 'Helvetica', sans-serif;
@@ -63,12 +64,12 @@
 .profile__form {
     max-width: 410px;
     width: 100%;
-    padding: 123px 0 16px;
+    padding: 100px 0 16px;
 }
 
 @media screen and (min-width: 321px) and (max-width: 768px) {
     .profile__form {
-        padding: 96px 0 16px;
+        padding: 73px 0 16px;
     }
 }
 
@@ -81,7 +82,7 @@
 @media screen and (max-width: 320px) {
     .profile__form {
         max-width: 260px;
-        padding: 80px 0 16px;
+        padding: 57px 0 16px;
     }
 }
 
@@ -240,4 +241,17 @@
     display: flex;
     visibility: visible;
     opacity: 1;
+}
+
+.profile__edit-updated {
+    position: relative;
+    min-height: 23px;
+    margin: 0;
+    padding: 0;
+    font-family: 'Inter', 'Arial', 'Helvetica', sans-serif;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 11px;
+    line-height: 13px;
+    color: #000000;
 }

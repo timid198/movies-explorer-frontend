@@ -1,6 +1,6 @@
-import React, {useEffect, useState} from 'react';
+import React, {useCallback, useEffect, useState} from 'react';
 import '../App/App.css';
-import { Route, Switch, Redirect, useHistory } from 'react-router-dom';
+import { Route, Switch, Redirect, useHistory, useLocation } from 'react-router-dom';
 import Main from '../Main/Main';
 import Movies from '../Movies/Movies';
 import SavedMovies from '../SavedMovies/SavedMovies';
@@ -19,6 +19,7 @@ import {headerColors} from '../../utils/constants';
 
 function App() {
 
+const location = useLocation();
 const { width } = useWindowDimensions()
 const [isBurgerMenuOpen, setIsBurgerMenuOpen] = useState(false);
 const [movies, setMovies] = useState([]);
@@ -28,6 +29,7 @@ const [savedMovies, setSavedMovies] = useState([]);
 const [loading, setLoading] = useState(false);
 const [openErrorPopup, setOpenErrorPopup] = useState(false);
 const [errorContent, setErrorContent] = useState({satusCode: '', statusMessage: ''});
+const [updateMessage, setUpdateMessage] = useState('');
 const history = useHistory();
 
 function handleBurgerMenuClick() {
@@ -38,15 +40,33 @@ function handleCloseClick() {
   setIsBurgerMenuOpen(false);
 }
 
+function closeOverlay(evt){
+  if(evt.target === evt.currentTarget){
+    setIsBurgerMenuOpen(false);
+  }
+}
+
+useEffect(() => {
+  const handleEsc = (event) => {
+      if (event.key === 'Escape') 
+      setIsBurgerMenuOpen(false);
+  };
+  window.addEventListener('keydown', handleEsc);
+
+  return () => {
+      window.removeEventListener('keydown', handleEsc);
+  };
+}, []);
+
 function handleErrorPopup() {
   setOpenErrorPopup(false);
   setErrorContent({satusCode: '', statusMessage: ''});
 }
 
 function handleError(el) {
-  if (el.satusCode && el.message) {
+  if (el.status && el.statusText) {
   setOpenErrorPopup(true);
-  setErrorContent({satusCode: el.satusCode, statusMessage: el.message});
+  setErrorContent({satusCode: el.status, statusMessage: el.statusText});
   }
 }
 
@@ -59,9 +79,13 @@ const getMovies = () => {
 }
 
 const registerUser = ({name, email, password}) => { 
-  setLoading(true); 
+  setLoading(true);
   clientApi.register(name, email, password)
-  .then(res => console.log('Вы успешно зарегистрировались.'))
+  .then(res => {
+    clientApi.login(email, password)
+    .then((res) => {setLoggedIn(true);
+              history.push('/movies');})
+    console.log('Вы успешно зарегистрировались и авторизовались.')})
   .catch((err) => handleError(err))
   .finally(() => setLoading(false))
 }
@@ -71,15 +95,15 @@ const loginUser = ({email, password}) => {
   clientApi.login(email, password)
   .then(res => {setLoggedIn(true);
                 history.push('/movies');})
-  .catch((err) => handleError(err))
+  .catch((err) => console.log(err))
   .finally(() => setLoading(false))
 }
 
 const logoutUser = () => {
   setLoading(true);
   clientApi.logout()
-  .then(res => {setLoggedIn(false);
-    history.push('/')})
+  .then((res) => {setLoggedIn(false);
+                history.push('/');})
   .catch((err) => handleError(err))
   .finally(() => setLoading(false))
 }
@@ -87,17 +111,26 @@ const logoutUser = () => {
 const updateUser = ({ name, email }) => {
   setLoading(true);
   clientApi.editProfile(name,email)
-  .then(res => {console.log('Профиль обновлён');
+  .then(res => {console.log(res);
+  setUpdateMessage(res.message);
   setCurrentUser({name: res.name, email: res.email});})
   .catch((err) => handleError(err))
   .finally(() => setLoading(false))
+}
+
+const nameEnChecker = (el) => {
+  if (el.nameEN === '') {
+    return {...el, nameEN: 'none'}
+  }
+  return el;
 }
 
 const movieLike = (props, link) => {
   setLoading(true);
   if (link === 'movies') {
   if (!savedMovies.find((el) => el.movieId === props.id)){ 
-  clientApi.createMovie(props)
+    let requestData = nameEnChecker(props);
+  clientApi.createMovie(requestData)
   .then(res => {setSavedMovies([...savedMovies, res]);
     console.log('Фильм добавлен в сохранённые.')})
   .catch(err => handleError(err))
@@ -119,11 +152,34 @@ const movieLike = (props, link) => {
     console.log('Фильм удалён из сохранённых.')})
   .catch(err => handleError(err))
   .finally(() => setLoading(false))
-}}
+}};
+
+const checkToken = useCallback(() => {
+  clientApi.getProfileData()
+  .then((res) => {
+      setCurrentUser({name: res.name, email: res.email, _id: res._id});
+      setLoggedIn(true);
+      if (location.pathname === '/signin' || location.pathname === '/signup') {
+        history.push('/movies');
+      } else {
+        history.push(location.pathname);
+      }
+  })
+  .catch((err) => handleError(err))
+}, [history]);
+  
+useEffect(() => {
+  checkToken();
+}, [checkToken, history])
+
 
 useEffect(() => {
   getMovies();
-}, [])
+}, []);
+
+useEffect(() => {
+  setUpdateMessage('');
+}, [location.pathname]);
 
 useEffect(() => {
   Promise.all([clientApi.getProfileData(), clientApi.getContent()])
@@ -187,6 +243,7 @@ return (
              navShow="grid; [@media (max-width:1279px)]: display: none"
              loggedIn={loggedIn}
              isLoading={loading}
+             updateMessage={updateMessage}
               / >
             <Route path="/signin">
               <Login
@@ -201,12 +258,13 @@ return (
                 />
             </Route>
             <Route>
-              {loggedIn ? <Redirect to="/movies" /> : <Redirect to="/" />}
+              {!loggedIn ? <Redirect to="/" /> : ''}
             </Route>
       </Switch>
 
       <Popup
        handleButtonCloseClick={handleCloseClick}
+       closeOverlay={closeOverlay}
        open={isBurgerMenuOpen}
        loggedIn={loggedIn}
         />

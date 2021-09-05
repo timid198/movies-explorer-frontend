@@ -1,7 +1,7 @@
 import { API_URL } from "./constants";
 
 export async function createMovie(data) {
-    let res = await fetch (`${API_URL}/movies`, {
+    const res = await fetch (`${API_URL}/movies`, {
         method: 'POST',
         credentials: 'include',
             headers: {
@@ -22,23 +22,20 @@ export async function createMovie(data) {
                 
             })
     })
-     try {
         if (res.status === 200) {
             return res.json();
+        }else{
+            return Promise.reject();
         }
-    } catch (error) {
-        console.log(error);
-    }
 };
 
 export  async function deleteMovie(_id){
-   let response = await fetch (`${API_URL}/movies/${_id}`, {
+    const response = await fetch (`${API_URL}/movies/${_id}`, {
     method: 'DELETE',
     credentials: 'include',        
-});
-     try {
+    });
         if (response.status === 200) {
-            let newMoviesList = await fetch (`${API_URL}/movies`, {
+            const newMoviesList = await fetch (`${API_URL}/movies`, {
               method: 'GET',
               credentials: 'include',
           });
@@ -46,32 +43,38 @@ export  async function deleteMovie(_id){
               return newMoviesList.json();
           }
           return;
-          } 
-    } catch (error) {
-        console.log(error);
-    }
+        }else{
+            return Promise.reject();
+        }
 };
 
 export async function register(name, email, password) {
-    let res = await fetch (`${API_URL}/signup`, {
+    const res = await fetch (`${API_URL}/signup`, {
         method: 'POST', 
         credentials: 'include',       
         headers: {
             'Content-Type': 'application/json'},
         body: JSON.stringify({name, email, password})
     })
-    
-     try {
         if (res.status ===200) {
-            return res.json();
+            const login = await fetch (`${API_URL}/signin`, {
+                method: 'POST',
+                credentials: 'include',
+                headers: {
+                    'Content-Type': 'application/json'},
+                body: JSON.stringify({email, password})
+            })
+                if (login.status === 200) {
+                    return login.json();                  
+            } 
+            return;
+        }else{
+            return Promise.reject();
         }
-    } catch (error) {
-        console.log(error);
-    }
 }
 
 export async function editProfile(name, email) {
-    let res = await fetch(`${API_URL}/users/me`, {
+    const res = await fetch(`${API_URL}/users/me`, {
         method: 'PATCH',
         credentials: 'include',
         headers: {
@@ -79,73 +82,62 @@ export async function editProfile(name, email) {
         },
         body: JSON.stringify({name, email})
     })
-    
-     try {
         if (res.status === 200) {
             return res.json();
+        }else{
+            return Promise.reject();
         }
-    } catch (error) {
-        console.log(error);
-    }
 }
 
 export async function login(email, password) {
-    let res = await fetch (`${API_URL}/signin`, {
+    const res = await fetch (`${API_URL}/signin`, {
         method: 'POST',
         credentials: 'include',
         headers: {
             'Content-Type': 'application/json'},
         body: JSON.stringify({email, password})
     })
-     try {
         if (res.status === 200) {
             return res.json();
-        }  
-    } catch (error) {
-        console.log(error);
-    }
+        }else{
+            return Promise.reject();
+        }
 }
 
 export async function getProfileData() {
-    let res = await fetch(`${API_URL}/users/me`, {
+    const res = await fetch(`${API_URL}/users/me`, {
         method: 'GET',
         credentials: 'include',
     })
-    try {
         if (res.status === 200) {
             return res.json();
+        }else{
+            return Promise.reject();
         }
-    } catch (error) {
-        console.log(error);
-    }
 }
 
 export async function getContent() {
-    let res = await fetch (`${API_URL}/movies`, {
+    const res = await fetch (`${API_URL}/movies`, {
         method: 'GET',
         credentials: 'include',
     })
-    try {
         if (res.status === 200) {
             return res.json();
+        }else{
+            return Promise.reject();
         }
-    } catch (error) {
-        console.log(error);
-    }
 }
 
 export async function logout() {
-    let res = await fetch (`${API_URL}/signout`, {
+    const res = await fetch (`${API_URL}/signout`, {
         method: 'POST',
         credentials: 'include',
         headers: {
             'Content-Type': 'application/json'},
     })
-    try {
-        if (res.status === 200) {
-            res.send({message: 'Вы произвели выход из аккаунта.'})
+        if (res.redirected) {
+            return res;
+        }else{
+            return Promise.reject();
         }
-    } catch (error) {
-        console.log(error);
-    }
 }

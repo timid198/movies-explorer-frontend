@@ -5,13 +5,38 @@ import Preloader from '../Preloader/Preloader';
 import { CurrentUserContext } from '../../contexts/CurrentUserContext';
 import { useFormAndValidate } from '../../utils/FormWithValidation';
 
-function Profile({handleButtonOpenClick, headerBackgrounColor, onUpdate, logout, title, navShow, loggedIn, isLoading}) {
+function Profile({handleButtonOpenClick, headerBackgrounColor, onUpdate, logout, title, navShow, loggedIn, isLoading, updateMessage}) {
     
     const currentUser = useContext(CurrentUserContext);
     const {values, handleChange, errors, isValid} = useFormAndValidate();
     const [name, setName] = useState(currentUser.name);
     const [email, setEmail] = useState(currentUser.email);
     const [formTitle, setFormTitle] = useState(currentUser.name);
+    const [checkData, isDataCheck] = useState(true);
+
+    function handleSubmit(evt) {
+        evt.preventDefault();
+        onUpdate({
+              name: name,
+              email: email,
+        })
+    }
+
+    function handleChangeName(e) {
+        setName(e.target.value);
+      }
+    
+      function handleChangeEmail(e) {
+        setEmail(e.target.value);
+    }
+
+    useEffect(() => {
+        if ((name === currentUser.name) && (email === currentUser.email)) {
+            isDataCheck(false);
+        }else{
+            isDataCheck(true);
+        }
+    })
 
     useEffect(() => {
         setName(currentUser.name);
@@ -25,29 +50,14 @@ function Profile({handleButtonOpenClick, headerBackgrounColor, onUpdate, logout,
 
     useEffect(() => {
         setFormTitle(title);
-    }, [title]);
-
-    function handleSubmit(evt) {
-        evt.preventDefault();
-        onUpdate({
-              name: name,
-              email: email,
-            })
-    }
-
-    function handleChangeName(e) {
-        setName(e.target.value);
-      }
-    
-      function handleChangeEmail(e) {
-        setEmail(e.target.value);
-      }
+    }, [title]);    
 
     return (
         <div className="profile">            
             <Header handleButtonOpenClick={handleButtonOpenClick} headerBackgrounColor={headerBackgrounColor} navShow={navShow} loggedIn={loggedIn} />
             <div className="profile-content">
                 <h2 className="profile-title">Привет, {formTitle}!</h2>
+                {updateMessage !== '' ? (<p className="profile__edit-updated">{updateMessage}</p>) : <p className="profile__edit-updated"></p>}
                 { isLoading ? <Preloader /> : ''}
                 <form className="profile__form" onSubmit={handleSubmit}>
                     <fieldset className="profile__name">
@@ -86,12 +96,12 @@ function Profile({handleButtonOpenClick, headerBackgrounColor, onUpdate, logout,
                         />
                         <span className={`register-input_error-hidden ${errors.email ? 'register-input_error-active' : ''}`}>{errors.email}</span>
                     </fieldset>
-                    <fieldset className="profile__edit">
+                    <fieldset className="profile__edit">                        
                         <label className="profile__edit-label">
                         <button
                         type="submit"
-                        className={`profile__edit-submit ${isValid ? 'profile__edit-submit_active' : ''}`}
-                        disabled={isValid ? false : true}
+                        className={`profile__edit-submit ${(isValid && checkData) ? 'profile__edit-submit_active' : ''}`}
+                        disabled={(isValid && checkData) ? false : true}
                         >Редактировать</button>
                         </label>
                     </fieldset>
