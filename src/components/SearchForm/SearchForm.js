@@ -39,7 +39,6 @@ function handleSubmit(evt) {
                      onChange={handleChange}
                      onFocus={() => setIsInputFocused(true)}
                      ref={movieRef}
-                     autoFocus
                      minLength="1"
                     />  
                     <button

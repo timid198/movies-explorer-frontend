@@ -7,6 +7,7 @@ import Preloader from '../Preloader/Preloader';
 import Footer from '../Footer/Footer';
 
 function Movies({handleButtonOpenClick, headerBackgrounColor, page, likeFunc, userId, cards, saved, width, navShow, loggedIn, isLoading}) {
+    
     const [isSearchRequest, setIsSearchRequest] = useState({movies: '', movieShort: true});
     const [isActive, setIsActive] = useState(true);
     const [movieCount, setMovieCount] = useState(5);
@@ -42,31 +43,20 @@ function Movies({handleButtonOpenClick, headerBackgrounColor, page, likeFunc, us
         }
         };
 
-    const filteredMovies = cards.filter(card => filterMovies(card, isSearchRequest));
+    const filteredMovies = cards.filter(card => filterMovies(card, isSearchRequest));    
     const toAddingMovies = filteredMovies.slice(0, movieCount);
 
     const toAddMoviesInitial = () => {
-        if (cards.length !== 0) {            
-            if ((filteredMovies.length > 0 && filteredMovies.length < 5) || (filteredMovies.length === toAddingMovies.length)) {
-                setIsActive(false);
-                setMovieCount(filteredMovies.length);
-                setLoading(false);
-            } if (!((filteredMovies.length - toAddingMovies.length) < 3) ) {
-                setIsActive(true);
-                setMovieCount(toAddingMovies.length);
-                setLoading(false);
-            }
-        }    
-    };  
-    
-    const appWidth = () => {
-        if (width > 320) {
-            setMoviesAdd(3);
-        }
-        if (width <= 320) {
-            setMoviesAdd(2);
-        }
-    }
+        if ((filteredMovies.length > 0 && filteredMovies.length < 5) || (filteredMovies.length === toAddingMovies.length)) {
+            setIsActive(false);
+            setMovieCount(filteredMovies.length);
+            setLoading(false);
+        } if (!((filteredMovies.length - toAddingMovies.length) < 3)) {
+            setIsActive(true);
+            setMovieCount(toAddingMovies.length);
+            setLoading(false);
+        }   
+    }; 
 
     useEffect(() => {
         if (filteredMovies.length !== 0 || filteredMovies.length === 0) {
@@ -75,16 +65,22 @@ function Movies({handleButtonOpenClick, headerBackgrounColor, page, likeFunc, us
     }, [filteredMovies])
 
     useEffect(() => {
-        toAddMoviesInitial();
-    });
-
-    useEffect(() => {
         setMovieCount(5);
     }, [isSearchRequest]);
 
     useEffect(() => {
-        setTimeout(() => appWidth(), 1000);
-    });
+        toAddMoviesInitial();
+    }, [])
+
+    useEffect(() => {
+        setTimeout(() => {
+            if (width > 320) {
+            setMoviesAdd(3);
+            }
+            if (width <= 320) {
+                setMoviesAdd(2);
+            }}, 5000);
+    }, [width]);
 
     return(        
         <div className="Movies">

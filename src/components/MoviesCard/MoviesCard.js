@@ -13,7 +13,6 @@ function MoviesCard({likeFunc, card, userId, added, page}) {
     }
 
     const handleMovieLike = (e) => {
-        console.log(card.movieId, page);
         e.preventDefault();
         likeFunc(card, page);
     }

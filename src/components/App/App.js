@@ -20,11 +20,11 @@ import {headerColors} from '../../utils/constants';
 function App() {
 
 const location = useLocation();
+const recievedMovies = JSON.parse(localStorage.getItem('movies'));
 const { width } = useWindowDimensions()
 const [isBurgerMenuOpen, setIsBurgerMenuOpen] = useState(false);
-const [movies, setMovies] = useState([]);
 const [loggedIn, setLoggedIn] = useState(false);
-const [currentUser, setCurrentUser] = useState({name: CurrentUserContext.name, email: CurrentUserContext.email, _id: CurrentUserContext._id});
+const [currentUser, setCurrentUser] = useState({name: CurrentUserContext.name, email: CurrentUserContext.email, _id: CurrentUserContext._id });
 const [savedMovies, setSavedMovies] = useState([]);
 const [loading, setLoading] = useState(false);
 const [openErrorPopup, setOpenErrorPopup] = useState(false);
@@ -63,20 +63,12 @@ function handleErrorPopup() {
   setErrorContent({satusCode: '', statusMessage: ''});
 }
 
-function handleError(el) {
-  if (el.status && el.statusText) {
-  setOpenErrorPopup(true);
-  setErrorContent({satusCode: el.status, statusMessage: el.statusText});
-  }
-}
-
-const getMovies = () => {
-  beatfilmMoviesApi.getContentFromBeatFilmMovies()
-  .then((res) => {
-    setMovies(res)})
-  .catch((err) => handleError(err))
-  .finally(() => setLoading(false))
-}
+// function handleError(el) {
+//   if (el.status && el.statusText) {
+//   setOpenErrorPopup(true);
+//   setErrorContent({satusCode: el.status, statusMessage: el.statusText});
+//   }
+// }
 
 const registerUser = ({name, email, password}) => { 
   setLoading(true);
@@ -86,7 +78,7 @@ const registerUser = ({name, email, password}) => {
     .then((res) => {setLoggedIn(true);
               history.push('/movies');})
     console.log('Вы успешно зарегистрировались и авторизовались.')})
-  .catch((err) => handleError(err))
+  .catch((err) => console.log(err))
   .finally(() => setLoading(false))
 }
 
@@ -94,7 +86,7 @@ const loginUser = ({email, password}) => {
   setLoading(true);
   clientApi.login(email, password)
   .then(res => {setLoggedIn(true);
-                history.push('/movies');})
+          history.push('/movies');})
   .catch((err) => console.log(err))
   .finally(() => setLoading(false))
 }
@@ -103,8 +95,9 @@ const logoutUser = () => {
   setLoading(true);
   clientApi.logout()
   .then((res) => {setLoggedIn(false);
+    localStorage.removeItem('movies');
                 history.push('/');})
-  .catch((err) => handleError(err))
+  .catch((err) => console.log(err))
   .finally(() => setLoading(false))
 }
 
@@ -114,7 +107,7 @@ const updateUser = ({ name, email }) => {
   .then(res => {console.log(res);
   setUpdateMessage(res.message);
   setCurrentUser({name: res.name, email: res.email});})
-  .catch((err) => handleError(err))
+  .catch((err) => console.log(err))
   .finally(() => setLoading(false))
 }
 
@@ -132,25 +125,28 @@ const movieLike = (props, link) => {
     let requestData = nameEnChecker(props);
   clientApi.createMovie(requestData)
   .then(res => {setSavedMovies([...savedMovies, res]);
+    localStorage.setItem('moviesSaved', JSON.stringify(...savedMovies, res));
     console.log('Фильм добавлен в сохранённые.')})
-  .catch(err => handleError(err))
+  .catch(err => console.log(err))
   .finally(() => setLoading(false))
-}else{
+  }else{
   let deletedMovie = savedMovies.find((movie) => movie.movieId === props.id);
    if (deletedMovie) {
   clientApi.deleteMovie(deletedMovie._id)
   .then(res => {
+    localStorage.setItem('moviesSaved', JSON.stringify(res));
     setSavedMovies(res);
     console.log('Фильм удалён из сохранённых.')})
-  .catch(err => handleError(err))
+  .catch(err => console.log(err))
   .finally(() => setLoading(false))
-}}} if (link === 'saved-movies') {
+  }}} if (link === 'saved-movies') {
   savedMovies.splice(savedMovies.indexOf(props, 0), 1);
   clientApi.deleteMovie(props._id)
   .then(res => {
+    localStorage.setItem('moviesSaved', JSON.stringify(res));
     setSavedMovies(res);
     console.log('Фильм удалён из сохранённых.')})
-  .catch(err => handleError(err))
+  .catch(err => console.log(err))
   .finally(() => setLoading(false))
 }};
 
@@ -165,31 +161,31 @@ const checkToken = useCallback(() => {
         history.push(location.pathname);
       }
   })
-  .catch((err) => handleError(err))
-}, [history]);
+  .catch((err) => console.log(err))
+}, [history, location.pathname]);
   
 useEffect(() => {
   checkToken();
 }, [checkToken, history])
-
-
-useEffect(() => {
-  getMovies();
-}, []);
 
 useEffect(() => {
   setUpdateMessage('');
 }, [location.pathname]);
 
 useEffect(() => {
-  Promise.all([clientApi.getProfileData(), clientApi.getContent()])
-    .then(res => {
-      const [profileData, moviesData] = res;
-      setSavedMovies(moviesData)      
-      setCurrentUser({name: profileData.name, email: profileData.email, _id: profileData._id});
-      setLoggedIn(true);}) 
-    .catch((err) => handleError(err))
-}, [loggedIn])
+  clientApi.getContent()
+    .then(res => {setSavedMovies(res);      
+                  setLoggedIn(true);}) 
+    .catch((err) => console.log(err))
+}, [loggedIn]);
+
+useEffect(() => {
+  console.log('Sent req to beat...');
+  beatfilmMoviesApi.getContentFromBeatFilmMovies()
+  .then((res) => localStorage.setItem('movies', JSON.stringify(res)))
+  .catch((err) => console.log(err))
+}, []);
+
 
 return (
   <CurrentUserContext.Provider value={currentUser}>
@@ -210,7 +206,7 @@ return (
              page={"movies"}
              likeFunc={movieLike}
              userId={currentUser._id}
-             cards={movies}
+             cards={recievedMovies}
              saved={savedMovies}
              width={width}
              handleButtonOpenClick={handleBurgerMenuClick}
