@@ -1,4 +1,30 @@
 .Main {
+    position: relative;
+      min-width: 320px;
+      display: grid;
+      align-items: center;
+      justify-content: center;
+      align-content: start;
+      grid-template-columns: repeat(1, 1fr);
+      grid-template-rows: repeat(3, max-content);
+      grid-template-areas:
+      "header"
+      "main"
+      "footer";
+  }
+  
+  @media screen and (min-width: 1281px) {
+    .Main {
+        grid-template-columns: 1fr 1280px 1fr;
+        grid-template-rows: repeat(3, max-content);
+        grid-template-areas:
+        ". header ."
+        ". main ."
+        ". footer .";
+    }
+  }
+
+.Main-content {
     grid-area: main;
     max-width: 1280px;
 }

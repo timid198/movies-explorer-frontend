@@ -63,7 +63,7 @@
     }
 }
 
-.error-popup__link {
+.error-popup__button {
     position: absolute;
     bottom: 60px;
     right: center;
@@ -75,6 +75,9 @@
     text-align: center;
     color: #3456F3;
     text-decoration: none;
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
 }
 
 @media screen and (min-width: 321px) and (max-width: 768px) {

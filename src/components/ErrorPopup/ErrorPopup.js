@@ -1,10 +1,17 @@
 import React from 'react';
 import './ErrorPopup.css';
-import { Link } from 'react-router-dom'
+import { useHistory } from 'react-router-dom'
 
-function ErrorPopup({open, statusCode, text}) {
+function ErrorPopup({open, updater, statusCode, text}) {
 
-const openPopup = `error-popup ${open ? 'popup_open' : ''}`;
+    const history = useHistory();
+    const openPopup = `error-popup ${open ? 'popup_open' : ''}`;
+
+    const handleClick = (e) => {
+        e.preventDefault();
+        updater();
+        history.push('/');
+    }
 
     return (
         <div className={openPopup}>
@@ -12,7 +19,7 @@ const openPopup = `error-popup ${open ? 'popup_open' : ''}`;
                 <h2 className="error-popup__title">{statusCode}</h2>
                 <p className="error-popup__message">{text}</p>
             </div>
-            <Link to="/" className="error-popup__link">Назад</Link>
+            <button type="button" className="error-popup__button" onClick={handleClick}>Назад</button>
         </div>
     )
 }

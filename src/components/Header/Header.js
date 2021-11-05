@@ -3,19 +3,25 @@ import './Header.css';
 import { Link } from 'react-router-dom';
 import Navigation from '../Navigation/Navigation';
 
-function Header({handleButtonOpenClick, headerBackgrounColor, profileShow, loginShow, registerShow, navShow, burgerMenuShow}) {
+function Header({handleButtonOpenClick, headerBackgrounColor, navShow, loggedIn}) {
+    
+    const unLoggedMenu = !loggedIn ?'header-auth' : 'header-auth_hidden'
+    const profileLogged = !loggedIn ? 'header-profile_hidden' : 'header-profile'
+    const burgerMenuShow = !loggedIn ? 'header-burger_hidden' : 'header-burger'
+
     return (
         <div className="header" style ={ { backgroundColor: headerBackgrounColor } }>
             
-            <Link to="/" className="header-logo" />            
-            <Navigation navShow={navShow} />
-
-            <div className="header-auth">
-                <Link to="/signup" className="header-auth__registration" style ={ { display: registerShow } } >Регистрация</Link>
-                <Link to="/signin" className="header-auth__login" style ={ { display: loginShow } } >Войти</Link>                
-            </div>
-            <Link to="/profile" className="header-profile" style ={ { display: profileShow } } />
-            <button type="button" className="header-burger" style ={ { display: burgerMenuShow } } onClick={handleButtonOpenClick} />            
+            <Link to="/" className="header-logo" />
+            <Navigation loggedIn={loggedIn} navShow={navShow} />
+            <Link to="/profile" className={profileLogged} />
+            
+            <div className={unLoggedMenu}>
+                    <Link to="/signup" className="header-auth__registration" >Регистрация</Link>
+                    <Link to="/signin" className="header-auth__login" >Войти</Link>                
+            </div>            
+             
+            <button type="button" className={burgerMenuShow} onClick={handleButtonOpenClick} />            
         </div>        
     )
 }

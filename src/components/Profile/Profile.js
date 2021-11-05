@@ -1,25 +1,113 @@
-import React from 'react';
+import React, {useState, useContext, useEffect} from 'react';
 import './Profile.css';
-import RegisterInput from '../RegisterInput/RegisterInput';
+import Header from '../Header/Header';
+import Preloader from '../Preloader/Preloader';
+import { CurrentUserContext } from '../../contexts/CurrentUserContext';
+import { useFormAndValidate } from '../../utils/FormWithValidation';
 
-function Profile() {
+function Profile({handleButtonOpenClick, headerBackgrounColor, onUpdate, logout, title, navShow, loggedIn, isLoading, updateMessage}) {
+    
+    const currentUser = useContext(CurrentUserContext);
+    const {values, handleChange, errors, isValid} = useFormAndValidate();
+    const [name, setName] = useState(currentUser.name);
+    const [email, setEmail] = useState(currentUser.email);
+    const [formTitle, setFormTitle] = useState(currentUser.name);
+    const [checkData, isDataCheck] = useState(true);
+
+    function handleSubmit(evt) {
+        evt.preventDefault();
+        onUpdate({
+              name: name,
+              email: email,
+        })
+    }
+
+    function handleChangeName(e) {
+        setName(e.target.value);
+      }
+    
+      function handleChangeEmail(e) {
+        setEmail(e.target.value);
+    }
+
+    useEffect(() => {
+        if ((name === currentUser.name) && (email === currentUser.email)) {
+            isDataCheck(false);
+        }else{
+            isDataCheck(true);
+        }
+    })
+
+    useEffect(() => {
+        setName(currentUser.name);
+        setEmail(currentUser.email);        
+    }, [currentUser]);
+
+    useEffect(() => {
+        values.name = name;
+        values.email = email;        
+    });
+
+    useEffect(() => {
+        setFormTitle(title);
+    }, [title]);    
+
     return (
-        <div className="profile">
-            <h2 className="profile-title">Привет, Андрей!</h2>
-            <form className="profile__form">
-                <fieldset className="profile__name">
-                    <RegisterInput label="Имя" type="text" name="name" placeholder="Андрей" minLength="2" maxLength="30" />
-                </fieldset>
-                <fieldset className="profile__email">
-                    <RegisterInput label="E-mail" type="email" name="email" placeholder="adm.az-an@yandex.ru" minLength="" maxLength="" />
-                </fieldset>
-                <fieldset className="profile__edit">
-                    <label className="profile__edit-label">
-                    <button type="submit" className="profile__edit-submit">Редактировать</button>
-                    </label>
-                </fieldset>
-            </form>
-            <button type="submit" className="profile__logout">Выйти из аккаунта</button>
+        <div className="profile">            
+            <Header handleButtonOpenClick={handleButtonOpenClick} headerBackgrounColor={headerBackgrounColor} navShow={navShow} loggedIn={loggedIn} />
+            <div className="profile-content">
+                <h2 className="profile-title">Привет, {formTitle}!</h2>
+                {updateMessage !== '' ? (<p className="profile__edit-updated">{updateMessage}</p>) : <p className="profile__edit-updated"></p>}
+                { isLoading ? <Preloader /> : ''}
+                <form className="profile__form" onSubmit={handleSubmit}>
+                    <fieldset className="profile__name">
+                        <label className="register-input__label">Имя</label>
+                        <input
+                        id="name"
+                        type="text"
+                        name="name"
+                        className={`register-input__input ${errors.name ? 'register-input__error' : ''}`}
+                        minLength="2"
+                        maxLength="30"
+                        placeholder="Имя"
+                        value={name}
+                        onChange={(e) => {handleChange(e);
+                                          handleChangeName(e)}}
+                        required
+                        autoFocus={true}
+                        formNoValidate
+                        />
+                        <span className={`register-input_error-hidden ${errors.name ? 'register-input_error-active' : ''}`}>{errors.name}</span>                    
+                    </fieldset>
+                    <fieldset className="profile__email">
+                    <label className="register-input__label">E-mail</label>
+                        <input
+                        id="email"
+                        type="email"
+                        name="email"
+                        className={`register-input__input ${errors.email ? 'register-input__error' : ''}`}                    
+                        placeholder="Электронная почта"
+                        value={email}
+                        onChange={(e) => {handleChange(e);
+                                          handleChangeEmail(e)}}
+                        required
+                        autoFocus={true}
+                        formNoValidate
+                        />
+                        <span className={`register-input_error-hidden ${errors.email ? 'register-input_error-active' : ''}`}>{errors.email}</span>
+                    </fieldset>
+                    <fieldset className="profile__edit">                        
+                        <label className="profile__edit-label">
+                        <button
+                        type="submit"
+                        className={`profile__edit-submit ${(isValid && checkData) ? 'profile__edit-submit_active' : ''}`}
+                        disabled={(isValid && checkData) ? false : true}
+                        >Редактировать</button>
+                        </label>
+                    </fieldset>
+                </form>
+                <button type="submit" className="profile__logout" onClick={logout}>Выйти из аккаунта</button>
+            </div>        
         </div>
     )
 }
