@@ -15,7 +15,7 @@ import * as beatfilmMoviesApi from '../../utils/MoviesApi';
 import * as clientApi from '../../utils/MainApi';
 import {CurrentUserContext} from '../../contexts/CurrentUserContext';
 
-import {headerColors} from '../../utils/constants';
+import {headerColors, IMAGE_NOT_FOUND} from '../../utils/constants';
 
 function App() {
 
@@ -112,10 +112,23 @@ const updateUser = ({ name, email }) => {
 }
 
 const nameEnChecker = (el) => {
-  if (el.nameEN === '') {
-    return {...el, nameEN: 'none'}
-  }
-  return el;
+  const imageURL = el.image ? `https://api.nomoreparties.co${el.image.url}` : IMAGE_NOT_FOUND;
+  const thumbnailURL = el.image ? `https://api.nomoreparties.co${el.image.formats.thumbnail.url}` : IMAGE_NOT_FOUND;
+  const noAdaptedName = el.nameEN ? el.nameEN : el.nameRU;
+  const countryValue = el.country ? el.country : "none";
+  return {
+    country: countryValue,
+    director: el.director,
+    duration: el.duration,
+    year: el.year,
+    description: el.description,
+    image: imageURL,
+    trailer: el.trailerLink,
+    thumbnail: thumbnailURL,
+    movieId: el.id,
+    nameRU: el.nameRU,
+    nameEN: noAdaptedName,
+    }                  
 }
 
 const movieLike = (props, link) => {
